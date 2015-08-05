@@ -8,14 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		AF48DBB91B72170C005611B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBB81B72170C005611B3 /* main.m */; };
-		AF48DBBC1B72170C005611B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBBB1B72170C005611B3 /* AppDelegate.m */; };
 		AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */; };
-		AF48DBC21B72170C005611B3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBC11B72170C005611B3 /* ViewController.m */; };
-		AF48DBC51B72170C005611B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC31B72170C005611B3 /* Main.storyboard */; };
 		AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC61B72170C005611B3 /* Images.xcassets */; };
-		AF48DBCA1B72170C005611B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC81B72170C005611B3 /* LaunchScreen.xib */; };
 		AF48DBD61B72170C005611B3 /* BawareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBD51B72170C005611B3 /* BawareTests.m */; };
 		AF48DBE01B721725005611B3 /* MicrosoftBandKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */; };
+		AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE71B7217B9005611B3 /* AppDelegate.m */; };
+		AF48DBEF1B7217B9005611B3 /* EventItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE81B7217B9005611B3 /* EventItem.m */; };
+		AF48DBF01B7217B9005611B3 /* EventsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */; };
+		AF48DBF21B7217B9005611B3 /* NewRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */; };
+		AF48DBF31B7217B9005611B3 /* RecordingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBEC1B7217B9005611B3 /* RecordingItem.m */; };
+		AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */; };
+		AF48DBF61B7217DE005611B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBF51B7217DE005611B3 /* Main.storyboard */; };
+		AF48DBF81B721804005611B3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48DBF71B721804005611B3 /* CoreBluetooth.framework */; };
+		AF48DBFA1B7219C3005611B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC81B72170C005611B3 /* LaunchScreen.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,18 +37,28 @@
 		AF48DBB31B72170C005611B3 /* Baware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baware.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF48DBB71B72170C005611B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF48DBB81B72170C005611B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AF48DBBA1B72170C005611B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AF48DBBB1B72170C005611B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		AF48DBBE1B72170C005611B3 /* Baware.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Baware.xcdatamodel; sourceTree = "<group>"; };
-		AF48DBC01B72170C005611B3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AF48DBC11B72170C005611B3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		AF48DBC41B72170C005611B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF48DBC61B72170C005611B3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AF48DBC91B72170C005611B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		AF48DBCF1B72170C005611B3 /* BawareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BawareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF48DBD41B72170C005611B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF48DBD51B72170C005611B3 /* BawareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BawareTests.m; sourceTree = "<group>"; };
 		AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
+		AF48DBE11B721771005611B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AF48DBE21B721771005611B3 /* EventItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventItem.h; sourceTree = "<group>"; };
+		AF48DBE31B721771005611B3 /* EventsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsListTableViewController.h; sourceTree = "<group>"; };
+		AF48DBE41B721771005611B3 /* NewRecordingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRecordingViewController.h; sourceTree = "<group>"; };
+		AF48DBE51B721771005611B3 /* RecordingItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingItem.h; sourceTree = "<group>"; };
+		AF48DBE61B721771005611B3 /* RecordingsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingsListTableViewController.h; sourceTree = "<group>"; };
+		AF48DBE71B7217B9005611B3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AF48DBE81B7217B9005611B3 /* EventItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventItem.m; sourceTree = "<group>"; };
+		AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsListTableViewController.m; sourceTree = "<group>"; };
+		AF48DBEA1B7217B9005611B3 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRecordingViewController.m; sourceTree = "<group>"; };
+		AF48DBEC1B7217B9005611B3 /* RecordingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingItem.m; sourceTree = "<group>"; };
+		AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingsListTableViewController.m; sourceTree = "<group>"; };
+		AF48DBF51B7217DE005611B3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AF48DBF71B721804005611B3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF48DBF81B721804005611B3 /* CoreBluetooth.framework in Frameworks */,
 				AF48DBE01B721725005611B3 /* MicrosoftBandKit_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,7 +84,7 @@
 		AF48DBAA1B72170C005611B3 = {
 			isa = PBXGroup;
 			children = (
-				AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */,
+				AF48DBF91B72180B005611B3 /* Frameworks */,
 				AF48DBB51B72170C005611B3 /* Baware */,
 				AF48DBD21B72170C005611B3 /* BawareTests */,
 				AF48DBB41B72170C005611B3 /* Products */,
@@ -87,14 +103,23 @@
 		AF48DBB51B72170C005611B3 /* Baware */ = {
 			isa = PBXGroup;
 			children = (
-				AF48DBBA1B72170C005611B3 /* AppDelegate.h */,
-				AF48DBBB1B72170C005611B3 /* AppDelegate.m */,
-				AF48DBC01B72170C005611B3 /* ViewController.h */,
-				AF48DBC11B72170C005611B3 /* ViewController.m */,
-				AF48DBC31B72170C005611B3 /* Main.storyboard */,
+				AF48DBF51B7217DE005611B3 /* Main.storyboard */,
+				AF48DBE11B721771005611B3 /* AppDelegate.h */,
+				AF48DBE71B7217B9005611B3 /* AppDelegate.m */,
+				AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */,
+				AF48DBE21B721771005611B3 /* EventItem.h */,
+				AF48DBE81B7217B9005611B3 /* EventItem.m */,
+				AF48DBE31B721771005611B3 /* EventsListTableViewController.h */,
+				AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */,
 				AF48DBC61B72170C005611B3 /* Images.xcassets */,
 				AF48DBC81B72170C005611B3 /* LaunchScreen.xib */,
-				AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */,
+				AF48DBEA1B7217B9005611B3 /* main.m */,
+				AF48DBE41B721771005611B3 /* NewRecordingViewController.h */,
+				AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */,
+				AF48DBE51B721771005611B3 /* RecordingItem.h */,
+				AF48DBEC1B7217B9005611B3 /* RecordingItem.m */,
+				AF48DBE61B721771005611B3 /* RecordingsListTableViewController.h */,
+				AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */,
 				AF48DBB61B72170C005611B3 /* Supporting Files */,
 			);
 			path = Baware;
@@ -124,6 +149,15 @@
 				AF48DBD41B72170C005611B3 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AF48DBF91B72180B005611B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF48DBF71B721804005611B3 /* CoreBluetooth.framework */,
+				AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,8 +240,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF48DBC51B72170C005611B3 /* Main.storyboard in Resources */,
-				AF48DBCA1B72170C005611B3 /* LaunchScreen.xib in Resources */,
+				AF48DBFA1B7219C3005611B3 /* LaunchScreen.xib in Resources */,
+				AF48DBF61B7217DE005611B3 /* Main.storyboard in Resources */,
 				AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,9 +261,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */,
-				AF48DBBC1B72170C005611B3 /* AppDelegate.m in Sources */,
-				AF48DBC21B72170C005611B3 /* ViewController.m in Sources */,
+				AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.m in Sources */,
 				AF48DBB91B72170C005611B3 /* main.m in Sources */,
+				AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */,
+				AF48DBEF1B7217B9005611B3 /* EventItem.m in Sources */,
+				AF48DBF21B7217B9005611B3 /* NewRecordingViewController.m in Sources */,
+				AF48DBF31B7217B9005611B3 /* RecordingItem.m in Sources */,
+				AF48DBF01B7217B9005611B3 /* EventsListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,14 +290,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		AF48DBC31B72170C005611B3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AF48DBC41B72170C005611B3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		AF48DBC81B72170C005611B3 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
