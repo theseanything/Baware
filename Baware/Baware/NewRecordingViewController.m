@@ -33,13 +33,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //Change to the tempRecording
-    
-    // Do any additional setup after loading the view.
-    
     //Connect to band
     [MSBClientManager sharedManager].delegate = self;
-
+    NSArray *clients = [[MSBClientManager sharedManager]attachedClients];
+    self.client = [clients firstObject];
     if (_client == nil) {
         [self output:@"No bands attached."];
         return;
