@@ -41,7 +41,7 @@
                     <navigationItem key="navigationItem" title="Recordings" id="w7p-iO-XPo">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="mxJ-cP-xuv">
                             <connections>
-                                <segue destination="6c5-mM-YpG" kind="presentation" id="x54-80-Jmv"/>
+                                <segue destination="6c5-mM-YpG" kind="presentation" identifier="newRecordingSegue" id="x54-80-Jmv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -110,7 +110,7 @@
                                     <action selector="stopButton:" destination="1oJ-7Z-RAT" eventType="touchUpInside" id="vVy-FF-sFr"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Console" translatesAutoresizingMaskIntoConstraints="NO" id="C3T-zJ-aYB">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Console" translatesAutoresizingMaskIntoConstraints="NO" id="C3T-zJ-aYB">
                                 <rect key="frame" x="0.0" y="400" width="600" height="200"/>
                                 <color key="backgroundColor" red="0.70835893774572956" green="0.83712241299465462" blue="0.85700757575757569" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

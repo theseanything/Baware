@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MicrosoftBandKit_iOS/MicrosoftBandKit_iOS.h>
 
 @interface RecordingsListTableViewController : UITableViewController
 

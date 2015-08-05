@@ -12,6 +12,8 @@
 
 @interface NewRecordingViewController : UIViewController<MSBClientManagerDelegate>
 
+@property (nonatomic, weak) MSBClient *client;
+
 @property RecordingItem *recording;
 - (IBAction)startButton:(id)sender;
 - (IBAction)stopButton:(id)sender;

@@ -13,7 +13,7 @@
 @interface RecordingsListTableViewController ()
 @property NSMutableArray *recordings;
 @property NSDateFormatter *dateFormatter;
-
+@property (nonatomic, weak) MSBClient *client;
 
 @end
 
@@ -24,7 +24,9 @@
     self.dateFormatter =[[NSDateFormatter alloc] init];
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     self.recordings = [[NSMutableArray alloc] init];
-
+    
+    NSArray *clients = [[MSBClientManager sharedManager]attachedClients];
+    self.client = [clients firstObject];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,12 +101,17 @@
 
 
 #pragma mark - Navigation
-
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     //Pass the band controller
+    if ([segue.identifier isEqualToString:@"newRecordingSegue"]) {
+        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
+        NewRecordingViewController* newRecording = (NewRecordingViewController *)navController.topViewController;
+        newRecording.client = self.client;
+    }
+    
 }
 
 

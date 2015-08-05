@@ -10,7 +10,6 @@
 
 @interface NewRecordingViewController ()
 
-@property (nonatomic, weak) MSBClient *client;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UITextView *console;
@@ -21,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *durationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *accCounterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gyrCounterLabel;
-
 
 @property int a;
 @property int g;
@@ -41,8 +39,7 @@
     
     //Connect to band
     [MSBClientManager sharedManager].delegate = self;
-    NSArray *clients = [[MSBClientManager sharedManager]attachedClients];
-    _client = [clients firstObject];
+
     if (_client == nil) {
         [self output:@"No bands attached."];
         return;
@@ -88,9 +85,7 @@
             self.g++;
             
         }];
-        
-        //Stop Accel updates after 60 seconds
-        //[self performSelector:@selector(stopAccelUpdates) withObject:0 afterDelay:5];
+
     }
     else
     {
@@ -149,6 +144,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    [[MSBClientManager sharedManager] cancelClientConnection:_client];
     if (sender != self.saveButton) return;
     if (self.tempRecording != nil) {
         self.recording = [[RecordingItem alloc] init];
