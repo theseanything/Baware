@@ -11,7 +11,6 @@
 @interface NewRecordingViewController ()
 
 @property (nonatomic, weak) MSBClient *client;
-@property BOOL recordingCompleted;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 @property (weak, nonatomic) IBOutlet UITextView *console;
@@ -24,10 +23,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *gyrCounterLabel;
 
 
-@property float **accData;
-@property float **gyrData;
 @property int a;
 @property int g;
+
 @property RecordingItem *tempRecording;
 
 @end
@@ -36,20 +34,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.recordingCompleted = NO;
     
     //Change to the tempRecording
-    self.accData = malloc(sizeof(double*)*1000);
-    for (int i = 0; i < 1000; i++) {
-        self.accData[i] = malloc(sizeof(double)*3);
-        for (int n = 0; n < 3; n++) { self.accData[i][n] = 0; }
-    }
     
-    self.gyrData = malloc(sizeof(double*)*1000);
-    for (int i = 0; i < 1000; i++) {
-        self.gyrData[i] = malloc(sizeof(double)*3);
-        for(int n = 0; n < 3; n++) { self.gyrData[i][n] = 0; }
-    }
     // Do any additional setup after loading the view.
     
     //Connect to band
@@ -69,6 +56,50 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (IBAction)startButton:(id)sender {
+    [self output:@"Start button pressed."];
+    
+    if (self.client && self.client.isDeviceConnected)
+    {
+        [self output:@"Starting Accelerometer updates..."];
+        self.stopButton.enabled = YES;
+        self.startButton.enabled = NO;
+        
+        if(self.tempRecording == nil) self.tempRecording = [[RecordingItem alloc] init];
+        
+        self.a = 0;
+        self.g = 0;
+        
+        [self.client.sensorManager startAccelerometerUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorAccelerometerData *accelerometerData, NSError *error) {
+            
+            self.tempRecording.accData[self.a][0] = accelerometerData.x;
+            self.tempRecording.accData[self.a][1] = accelerometerData.y;
+            self.tempRecording.accData[self.a][2] = accelerometerData.z;
+            self.a++;
+            
+        }];
+        
+        [self.client.sensorManager startGyroscopeUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorGyroscopeData *gyroscopeData, NSError *error) {
+            
+            self.tempRecording.gyrData[self.g][0] = gyroscopeData.x;
+            self.tempRecording.gyrData[self.g][1] = gyroscopeData.y;
+            self.tempRecording.gyrData[self.g][2] = gyroscopeData.z;
+            self.g++;
+            
+        }];
+        
+        //Stop Accel updates after 60 seconds
+        //[self performSelector:@selector(stopAccelUpdates) withObject:0 afterDelay:5];
+    }
+    else
+    {
+        [self output:@"Band is not connected. Please wait...."];
+    }
+    
+    
+}
+
 - (void)output:(NSString *)message
 {
     self.console.text = [NSString stringWithFormat:@"%@\n%@", self.console.text, message];
@@ -85,11 +116,7 @@
     [self.client.sensorManager stopAccelerometerUpdatesErrorRef:nil];
     [self output:@"Updates stopped."];
     
-    self.tempRecording = [[RecordingItem alloc] init];
-    
     self.tempRecording.dateCreated = [NSDate date];
-    self.tempRecording.accData = self.accData;
-    self.tempRecording.gyrData = self.gyrData;
     
     self.tempRecording.accCount = [[NSNumber alloc] initWithInt:self.a];
     self.tempRecording.gyrCount = [[NSNumber alloc] initWithInt:self.g];
@@ -97,23 +124,22 @@
     if(self.a>self.g) self.tempRecording.duration = [[NSNumber alloc] initWithInt:(self.g*32/1000)];
     else self.tempRecording.duration = [[NSNumber alloc] initWithInt:(self.a*32/1000)];
     
-    self.recordingCompleted = YES;
     self.stopButton.enabled = NO;
     self.startButton.enabled = YES;
-    
+    self.saveButton.enabled = YES;
     
 }
 
 -(void)displayRecordingInfo
 {
-    self.accCounterLabel.text = [NSString stringWithFormat:@"%@", self.recording.accCount];
-    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%@", self.recording.gyrCount];
-    self.durationLabel.text = [NSString stringWithFormat:@"%@ s", self.recording.duration];
+    self.accCounterLabel.text = [NSString stringWithFormat:@"%@", self.tempRecording.accCount];
+    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%@", self.tempRecording.gyrCount];
+    self.durationLabel.text = [NSString stringWithFormat:@"%@ s", self.tempRecording.duration];
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     
-    self.timeLabel.text = [dateFormatter stringFromDate:self.recording.dateCreated];
+    self.timeLabel.text = [dateFormatter stringFromDate:self.tempRecording.dateCreated];
     
 }
 
@@ -124,63 +150,13 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     if (sender != self.saveButton) return;
-    if (self.recordingCompleted) {
+    if (self.tempRecording != nil) {
         self.recording = [[RecordingItem alloc] init];
-        
-        self.recording.dateCreated = [NSDate date];
-        self.recording.accData = self.accData;
-        self.recording.gyrData = self.gyrData;
-        
-        self.recording.accCount = [[NSNumber alloc] initWithInt:self.a];
-        self.recording.gyrCount = [[NSNumber alloc] initWithInt:self.g];
-        
-        if(self.a>self.g) self.recording.duration = [[NSNumber alloc] initWithInt:(self.g*32/1000)];
-        else self.recording.duration = [[NSNumber alloc] initWithInt:(self.a*32/1000)];
+        self.recording = self.tempRecording;
     }
 }
 
 
-- (IBAction)startButton:(id)sender {
-    [self output:@"Start button pressed."];
-    
-    if (self.client && self.client.isDeviceConnected)
-    {
-        [self output:@"Starting Accelerometer updates..."];
-        self.stopButton.enabled = YES;
-        self.startButton.enabled = NO;
-        //self.senseData = [[NSMutableArray alloc] initWithCapacity:100];
-        
-        self.a = 0;
-        self.g = 0;
-        
-        [self.client.sensorManager startAccelerometerUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorAccelerometerData *accelerometerData, NSError *error) {
-            
-            self.accData[self.a][0] = accelerometerData.x;
-            self.accData[self.a][1] = accelerometerData.y;
-            self.accData[self.a][2] = accelerometerData.z;
-            self.a++;
-            
-        }];
-        
-        [self.client.sensorManager startGyroscopeUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorGyroscopeData *gyroscopeData, NSError *error) {
-            
-            self.gyrData[self.g][0] = gyroscopeData.x;
-            self.gyrData[self.g][1] = gyroscopeData.y;
-            self.gyrData[self.g][2] = gyroscopeData.z;
-            self.g++;
-            
-        }];
-        
-        //Stop Accel updates after 60 seconds
-        //[self performSelector:@selector(stopAccelUpdates) withObject:0 afterDelay:5];
-    }
-    else
-    {
-        [self output:@"Band is not connected. Please wait...."];
-    }
-
-    
-}
 
 
 - (IBAction)stopButton:(id)sender {
