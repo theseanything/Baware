@@ -9,6 +9,10 @@
 #import "NewRecordingViewController.h"
 
 @interface NewRecordingViewController ()
+@property (nonatomic, weak) MSBClient *client;
+
+- (IBAction)startButton:(id)sender;
+- (IBAction)stopButton:(id)sender;
 
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
@@ -24,7 +28,7 @@
 @property int a;
 @property int g;
 
-@property RecordingItem *tempRecording;
+@property RawData *rawData;
 
 @end
 
@@ -32,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //Connect to band
     [MSBClientManager sharedManager].delegate = self;
     NSArray *clients = [[MSBClientManager sharedManager]attachedClients];
@@ -60,25 +63,27 @@
         self.stopButton.enabled = YES;
         self.startButton.enabled = NO;
         
-        if(self.tempRecording == nil) self.tempRecording = [[RecordingItem alloc] init];
+        if(self.rawData == nil) {
+            self.rawData = [[RawData alloc] init];
+        }
         
         self.a = 0;
         self.g = 0;
         
         [self.client.sensorManager startAccelerometerUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorAccelerometerData *accelerometerData, NSError *error) {
             
-            self.tempRecording.accData[self.a][0] = accelerometerData.x;
-            self.tempRecording.accData[self.a][1] = accelerometerData.y;
-            self.tempRecording.accData[self.a][2] = accelerometerData.z;
+            self.rawData.accDataArray[self.a][0] = accelerometerData.x;
+            self.rawData.accDataArray[self.a][1] = accelerometerData.y;
+            self.rawData.accDataArray[self.a][2] = accelerometerData.z;
             self.a++;
             
         }];
         
         [self.client.sensorManager startGyroscopeUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorGyroscopeData *gyroscopeData, NSError *error) {
             
-            self.tempRecording.gyrData[self.g][0] = gyroscopeData.x;
-            self.tempRecording.gyrData[self.g][1] = gyroscopeData.y;
-            self.tempRecording.gyrData[self.g][2] = gyroscopeData.z;
+            self.rawData.gyrDataArray[self.g][0] = gyroscopeData.x;
+            self.rawData.gyrDataArray[self.g][1] = gyroscopeData.y;
+            self.rawData.gyrDataArray[self.g][2] = gyroscopeData.z;
             self.g++;
             
         }];
@@ -92,8 +97,18 @@
     
 }
 
-- (void)output:(NSString *)message
-{
+
+- (IBAction)stopButton:(id)sender {
+    [self stopUpdates];
+    [self createRecording];
+    [self displayRecordingInfo];
+    
+    self.stopButton.enabled = NO;
+    self.startButton.enabled = YES;
+    self.saveButton.enabled = YES;
+}
+
+- (void)output:(NSString *)message {
     self.console.text = [NSString stringWithFormat:@"%@\n%@", self.console.text, message];
     CGPoint p = [self.console contentOffset];
     [self.console setContentOffset:p animated:NO];
@@ -107,32 +122,39 @@
     [self.client.sensorManager stopGyroscopeUpdatesErrorRef:nil];
     [self.client.sensorManager stopAccelerometerUpdatesErrorRef:nil];
     [self output:@"Updates stopped."];
+}
+
+-(void)createRecording
+{
+    if(self.recording == nil) {
+        self.recording = (Recording *)[NSEntityDescription insertNewObjectForEntityForName:@"Recording" inManagedObjectContext:self.managedObjectContext];
+    }
     
-    self.tempRecording.dateCreated = [NSDate date];
+    self.recording.dateCreated = [NSDate date];
     
-    self.tempRecording.accCount = [[NSNumber alloc] initWithInt:self.a];
-    self.tempRecording.gyrCount = [[NSNumber alloc] initWithInt:self.g];
+    self.recording.accCounter = [[NSNumber alloc] initWithInt:self.a];
+    self.recording.gyrCounter = [[NSNumber alloc] initWithInt:self.g];
     
-    if(self.a>self.g) self.tempRecording.duration = [[NSNumber alloc] initWithInt:(self.g*32/1000)];
-    else self.tempRecording.duration = [[NSNumber alloc] initWithInt:(self.a*32/1000)];
-    
-    self.stopButton.enabled = NO;
-    self.startButton.enabled = YES;
-    self.saveButton.enabled = YES;
+    self.recording.duration = [self calculateDuration:self.a gyrCounter:self.g];
     
 }
 
 -(void)displayRecordingInfo
 {
-    self.accCounterLabel.text = [NSString stringWithFormat:@"%@", self.tempRecording.accCount];
-    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%@", self.tempRecording.gyrCount];
-    self.durationLabel.text = [NSString stringWithFormat:@"%@ s", self.tempRecording.duration];
+    self.accCounterLabel.text = [NSString stringWithFormat:@"%d", self.a];
+    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%d", self.g];
+    self.durationLabel.text = [NSString stringWithFormat:@"%@ s", [self calculateDuration:self.a gyrCounter:self.g]];
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     
-    self.timeLabel.text = [dateFormatter stringFromDate:self.tempRecording.dateCreated];
+    self.timeLabel.text = [dateFormatter stringFromDate:[NSDate date]];
     
+}
+
+-(NSNumber*)calculateDuration:(int)aCount gyrCounter:(int)gCount{
+    if(aCount>gCount) return [[NSNumber alloc] initWithInt:(self.g*32/1000)];
+    return[[NSNumber alloc] initWithInt:(self.a*32/1000)];
 }
 
 #pragma mark - Navigation
@@ -142,20 +164,38 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     [[MSBClientManager sharedManager] cancelClientConnection:_client];
-    if (sender != self.saveButton) return;
-    if (self.tempRecording != nil) {
-        self.recording = [[RecordingItem alloc] init];
-        self.recording = self.tempRecording;
+    if (sender != self.saveButton){
+        [self cancelData];
+        return;
+    }
+    if (self.recording != nil) {
+        [self saveData];
     }
 }
 
-
-
-
-- (IBAction)stopButton:(id)sender {
-    [self stopUpdates];
-    [self displayRecordingInfo];
+- (void)saveData{
+    NSError *error = nil;
+    if (![self.recording.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    //[self.delegate newRecordingViewController:self didAddRecording:self.recording];
 }
+
+-(void)cancelData{
+    [self.recording.managedObjectContext deleteObject:self.recording];
+    
+    NSError *error = nil;
+    if (![self.recording.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    //[self.delegate newRecordingViewController:self didAddRecording:nil];
+}
+
+
+
+
 
 #pragma mark - Client Manager Delegates
 

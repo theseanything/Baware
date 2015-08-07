@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <MicrosoftBandKit_iOS/MicrosoftBandKit_iOS.h>
+#import <CoreData/CoreData.h>
+#import "NewRecordingViewController.h"
 
-@interface RecordingsListTableViewController : UITableViewController
+@interface RecordingsListTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue;
 

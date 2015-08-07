@@ -7,15 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
-@interface RecordingItem : NSObject
+@interface ArrayToDataTransformer : NSValueTransformer
+@end
 
-@property NSDate *dateCreated;
-@property NSNumber *duration;
-@property NSNumber *accCount;
-@property NSNumber *gyrCount;
+@interface RecordingItem : NSManagedObject
+
+@property (nonatomic, strong) NSDate *dateCreated;
+@property (nonatomic, strong) NSNumber *duration;
+@property (nonatomic, strong) NSNumber *accCount;
+@property (nonatomic, strong) NSNumber *gyrCount;
 
 @property float **accData;
 @property float **gyrData;
+
+-(void)initCArrays;
 
 @end

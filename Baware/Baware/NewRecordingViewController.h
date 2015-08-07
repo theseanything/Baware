@@ -8,14 +8,24 @@
 
 #import <UIKit/UIKit.h>
 #import <MicrosoftBandKit_iOS/MicrosoftBandKit_iOS.h>
-#import "RecordingItem.h"
+#import <CoreData/CoreData.h>
+#import "Recording.h"
+#import "RawData.h"
+
+@protocol RecordingAddDelegate;
 
 @interface NewRecordingViewController : UIViewController<MSBClientManagerDelegate>
 
-@property (nonatomic, weak) MSBClient *client;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@property RecordingItem *recording;
-- (IBAction)startButton:(id)sender;
-- (IBAction)stopButton:(id)sender;
+@property (nonatomic, strong) Recording *recording;
+//@property (nonatomic, unsafe_unretained) id <RecordingAddDelegate> delegate;
 
 @end
+
+/*@protocol RecordingAddDelegate <NSObject>
+
+//recording == nil on cancel
+-(void)newRecordingViewController: (NewRecordingViewController *)newRecordingViewController didAddRecording:(Recording *)recording;
+
+@end*/
