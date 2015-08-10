@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Recording;
 
 @interface Event : NSManagedObject
 
 @property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * timeOccured;
 @property (nonatomic, retain) NSNumber * duration;
+@property (nonatomic, retain) Recording *recording;
+
 
 @end

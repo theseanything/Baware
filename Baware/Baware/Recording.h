@@ -12,15 +12,26 @@
 //@interface ArrayToDataTransformer : NSValueTransformer
 //@end
 
+@class Event;
+
 @interface Recording : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * duration;
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSNumber * accCounter;
 @property (nonatomic, retain) NSNumber * gyrCounter;
-@property (nonatomic, retain) id accData;
-@property (nonatomic, retain) id gyrData;
+@property (nonatomic, retain) id sensorData;
+@property (nonatomic, retain) NSSet *events;
 
--(void)setData:(float**) accData gyrData:(float**) gyrData;
+-(void)setData:(float**)accData gyrData:(float**)gyrData;
+
+@end
+
+@interface Recording (CoreDataGeneratedAccessors)
+
+- (void)addEventsObject:(Event *)value;
+- (void)removeEventsObject:(Event *)value;
+- (void)addEvents:(NSSet *)values;
+- (void)removeEvents:(NSSet *)values;
 
 @end

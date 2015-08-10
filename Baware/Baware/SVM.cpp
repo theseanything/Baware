@@ -6,29 +6,34 @@
 //  Copyright (c) 2015 Sean Rankine. All rights reserved.
 //
 
-#include "SVM.h"
-
+#include "SVM.hpp"
 
 using namespace cv;
 using namespace cv::ml;
-int main(int, char**)
-{
-    // Data for visual representation
-    int width = 512, height = 512;
-    Mat image = Mat::zeros(height, width, CV_8UC3);
-    
-    // Set up training data
-    int labels[4] = {1, -1, -1, -1};
-    float trainingData[4][2] = { {501, 10}, {255, 10}, {501, 255}, {10, 501} };
-    Mat trainingDataMat(4, 2, CV_32FC1, trainingData);
-    Mat labelsMat(4, 1, CV_32SC1, labels);
-    
-    // Train the SVM
-    Ptr<SVM> svm = SVM::create();
+
+Classifier::Classifier(){
+    trainingDataMat = new Mat(4, 2, CV_32FC1, trainingData);
+    labelsMat = new Mat(4, 1, CV_32SC1, labels);
+    svm = SVM::create();
     svm->setType(SVM::C_SVC);
     svm->setKernel(SVM::LINEAR);
     svm->setTermCriteria(TermCriteria(TermCriteria::MAX_ITER, 100, 1e-6));
-    svm->train(trainingDataMat, ROW_SAMPLE, labelsMat);
+}
+
+Classifier::~Classifier(){
+    //call other destructors
+    delete trainingDataMat;
+    delete labelsMat;
+    delete svm;
+    
+}
+
+int Classifier::classify(WindowSet *windowSet){
+    Mat query(windowSet->getNumOfWindows(), windowSet->getNumOfFeatures(), CV_32FC1, windowSet->getWindows());
+    
+    Mat result;
+    
+    svm->predict(query, result);
     
     return 0;
 }

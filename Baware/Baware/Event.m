@@ -14,5 +14,7 @@
 @dynamic type;
 @dynamic timeOccured;
 @dynamic duration;
+@dynamic recording;
+
 
 @end
