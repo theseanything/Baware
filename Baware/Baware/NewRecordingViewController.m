@@ -137,6 +137,8 @@
     
     self.recording.duration = [self calculateDuration:self.a gyrCounter:self.g];
     
+    [self.recording setData:self.rawData.accDataArray gyrData:self.rawData.gyrDataArray];
+    
 }
 
 -(void)displayRecordingInfo

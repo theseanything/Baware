@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Event" representedClassName="Event" syncable="YES">
+        <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timeOccured" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Recording" representedClassName="Recording" syncable="YES">
         <attribute name="accCounter" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="accData" optional="YES" attributeType="Transformable" syncable="YES"/>
@@ -10,5 +15,6 @@
     </entity>
     <elements>
         <element name="Recording" positionX="-63" positionY="-36" width="128" height="133"/>
+        <element name="Event" positionX="-63" positionY="9" width="128" height="90"/>
     </elements>
 </model>

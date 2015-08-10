@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface ArrayToDataTransformer : NSValueTransformer
-@end
+//@interface ArrayToDataTransformer : NSValueTransformer
+//@end
 
 @interface Recording : NSManagedObject
 
@@ -21,5 +21,6 @@
 @property (nonatomic, retain) id accData;
 @property (nonatomic, retain) id gyrData;
 
+-(void)setData:(float**) accData gyrData:(float**) gyrData;
 
 @end

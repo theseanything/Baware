@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF0B77A81B77C181007CA6FE /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77A71B77C181007CA6FE /* Event.m */; };
+		AF0B77AA1B77C360007CA6FE /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0B77A91B77C360007CA6FE /* opencv2.framework */; };
+		AF0B77AD1B77C5E9007CA6FE /* SVM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AC1B77C5E9007CA6FE /* SVM.cpp */; };
 		AF48DBB91B72170C005611B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBB81B72170C005611B3 /* main.m */; };
 		AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */; };
 		AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC61B72170C005611B3 /* Images.xcassets */; };
 		AF48DBD61B72170C005611B3 /* BawareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBD51B72170C005611B3 /* BawareTests.m */; };
 		AF48DBE01B721725005611B3 /* MicrosoftBandKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */; };
 		AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE71B7217B9005611B3 /* AppDelegate.m */; };
-		AF48DBEF1B7217B9005611B3 /* EventItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE81B7217B9005611B3 /* EventItem.m */; };
 		AF48DBF01B7217B9005611B3 /* EventsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */; };
 		AF48DBF21B7217B9005611B3 /* NewRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */; };
 		AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */; };
@@ -35,6 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF0B77A61B77C181007CA6FE /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		AF0B77A71B77C181007CA6FE /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		AF0B77A91B77C360007CA6FE /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		AF0B77AB1B77C5E9007CA6FE /* SVM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVM.h; sourceTree = "<group>"; };
+		AF0B77AC1B77C5E9007CA6FE /* SVM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVM.cpp; sourceTree = "<group>"; };
 		AF48DBB31B72170C005611B3 /* Baware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baware.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF48DBB71B72170C005611B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF48DBB81B72170C005611B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -46,12 +53,10 @@
 		AF48DBD51B72170C005611B3 /* BawareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BawareTests.m; sourceTree = "<group>"; };
 		AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
 		AF48DBE11B721771005611B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AF48DBE21B721771005611B3 /* EventItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventItem.h; sourceTree = "<group>"; };
 		AF48DBE31B721771005611B3 /* EventsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsListTableViewController.h; sourceTree = "<group>"; };
 		AF48DBE41B721771005611B3 /* NewRecordingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRecordingViewController.h; sourceTree = "<group>"; };
 		AF48DBE61B721771005611B3 /* RecordingsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingsListTableViewController.h; sourceTree = "<group>"; };
 		AF48DBE71B7217B9005611B3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AF48DBE81B7217B9005611B3 /* EventItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventItem.m; sourceTree = "<group>"; };
 		AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsListTableViewController.m; sourceTree = "<group>"; };
 		AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRecordingViewController.m; sourceTree = "<group>"; };
 		AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingsListTableViewController.m; sourceTree = "<group>"; };
@@ -68,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF0B77AA1B77C360007CA6FE /* opencv2.framework in Frameworks */,
 				AF48DBF81B721804005611B3 /* CoreBluetooth.framework in Frameworks */,
 				AF48DBE01B721725005611B3 /* MicrosoftBandKit_iOS.framework in Frameworks */,
 			);
@@ -148,6 +154,7 @@
 		AF48DBF91B72180B005611B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AF0B77A91B77C360007CA6FE /* opencv2.framework */,
 				AF48DBF71B721804005611B3 /* CoreBluetooth.framework */,
 				AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */,
 			);
@@ -157,13 +164,15 @@
 		AF48DBFC1B73A044005611B3 /* Model and Model Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AF48DC041B73B501005611B3 /* Recording.h */,
+				AF0B77AB1B77C5E9007CA6FE /* SVM.h */,
+				AF0B77AC1B77C5E9007CA6FE /* SVM.cpp */,
+				AF0B77A61B77C181007CA6FE /* Event.h */,
+				AF0B77A71B77C181007CA6FE /* Event.m */,
 				AF48DC071B74E7DB005611B3 /* RawData.h */,
 				AF48DC081B74E7DB005611B3 /* RawData.m */,
+				AF48DC041B73B501005611B3 /* Recording.h */,
 				AF48DC051B73B501005611B3 /* Recording.m */,
 				AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */,
-				AF48DBE21B721771005611B3 /* EventItem.h */,
-				AF48DBE81B7217B9005611B3 /* EventItem.m */,
 			);
 			name = "Model and Model Classes";
 			sourceTree = "<group>";
@@ -287,11 +296,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF0B77AD1B77C5E9007CA6FE /* SVM.cpp in Sources */,
 				AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */,
 				AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.m in Sources */,
 				AF48DBB91B72170C005611B3 /* main.m in Sources */,
+				AF0B77A81B77C181007CA6FE /* Event.m in Sources */,
 				AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */,
-				AF48DBEF1B7217B9005611B3 /* EventItem.m in Sources */,
 				AF48DC061B73B501005611B3 /* Recording.m in Sources */,
 				AF48DBF21B7217B9005611B3 /* NewRecordingViewController.m in Sources */,
 				AF48DBF01B7217B9005611B3 /* EventsListTableViewController.m in Sources */,
@@ -490,6 +500,7 @@
 				AF48DBDB1B72170C005611B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AF48DBDC1B72170C005611B3 /* Build configuration list for PBXNativeTarget "BawareTests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +509,7 @@
 				AF48DBDE1B72170C005611B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

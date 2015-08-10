@@ -19,13 +19,6 @@
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, strong) Recording *recording;
-//@property (nonatomic, unsafe_unretained) id <RecordingAddDelegate> delegate;
 
 @end
 
-/*@protocol RecordingAddDelegate <NSObject>
-
-//recording == nil on cancel
--(void)newRecordingViewController: (NewRecordingViewController *)newRecordingViewController didAddRecording:(Recording *)recording;
-
-@end*/
