@@ -15,16 +15,16 @@
     self = [super init];
     if (self)
     {
-        self.accDataArray = malloc(sizeof(double*)*1000);
+        self.accDataArray = malloc(sizeof(float*)*1000);
         for (int i = 0; i < 1000; i++)
         {
-            self.accDataArray[i] = malloc(sizeof(double)*3);
+            self.accDataArray[i] = malloc(sizeof(float)*3);
             for (int n = 0; n < 3; n++) { self.accDataArray[i][n] = 0; }
         }
-        self.gyrDataArray = malloc(sizeof(double*)*1000);
+        self.gyrDataArray = malloc(sizeof(float*)*1000);
         for (int i = 0; i < 1000; i++)
         {
-            self.gyrDataArray[i] = malloc(sizeof(double)*3);
+            self.gyrDataArray[i] = malloc(sizeof(float)*3);
             for(int n = 0; n < 3; n++) { self.gyrDataArray[i][n] = 0; }
         }
     }

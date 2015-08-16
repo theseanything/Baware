@@ -1,89 +1,68 @@
 //
-//  RecordingsListTableViewController.m
-//  Baware 2
+//  RecordingDetailViewController.m
+//  Baware
 //
-//  Created by Sean Rankine on 04/08/2015.
+//  Created by Sean Rankine on 13/08/2015.
 //  Copyright (c) 2015 Sean Rankine. All rights reserved.
 //
 
-#import "RecordingsListTableViewController.h"
-#import "NewRecordingViewController.h"
+#import "RecordingDetailViewController.h"
 
-@interface RecordingsListTableViewController ()
+@interface RecordingDetailViewController ()
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfAccelerometerReadings;
+@property (weak, nonatomic) IBOutlet UILabel *numberOfGyroscopeReadings;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *analyseButton;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navBarTitle;
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
+- (IBAction)analyseButton:(id)sender;
+
 @end
 
-@implementation RecordingsListTableViewController
-
+@implementation RecordingDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
-    NSError *error = nil;
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+    static NSDateFormatter *dateFormatter = nil;
+    if (dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     }
+    
+    self.timeLabel.text = [dateFormatter stringFromDate:self.recording.dateCreated];
+    self.durationLabel.text = [NSString stringWithFormat:@"%@ s", self.recording.duration];
+    self.numberOfAccelerometerReadings.text = [NSString stringWithFormat:@"%@", self.recording.accCounter];
+    self.numberOfGyroscopeReadings.text = [NSString stringWithFormat:@"%@", self.recording.gyrCounter];
+
+    // Do any additional setup after loading the view.
 }
 
-#pragma mark - Recording Support
-
-/*-(void)newRecordingViewController:(NewRecordingViewController *)newRecordingViewController didAddRecording:(Recording *)recording{
-    if (recording) {
-        [self performSegueWithIdentifier:kShowRecordingListSegueID sender:recording];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}*/
-
-
-
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue {
-    /*NewRecordingViewController *source = [segue sourceViewController];
-    Recording *item = source.recording;
-    if (item != nil) {
-        [self.recordings addObject:item];
-        [self.tableView reloadData];
-    }*/
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger count = [self.fetchedResultsController sections].count;
-    
-    if (count == 0) {
-        count = 1;
-    }
-    
-    return count;
-    //return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger numberOfRows = 0;
-    
-    if ([self.fetchedResultsController sections].count > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        numberOfRows = [sectionInfo numberOfObjects];
-    }
-    
-    return numberOfRows;
-    //return [self.recordings count];
+    if(self.recording.events != nil) return [self.recording.events count];
+    return 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ListPrototypeCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventPrototypeCell" forIndexPath:indexPath];
     
     [self configureCell:cell atIndexPath:indexPath];
     
@@ -98,66 +77,34 @@
         [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     }
     
-    Recording *recording = (Recording *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [dateFormatter stringFromDate:recording.dateCreated];
+    Event* event = (Event*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = [dateFormatter stringFromDate:event.timeOccured];
+    
+    //Recording *recording = (Recording *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    //cell.textLabel.text = [dateFormatter stringFromDate:recording.dateCreated];
     
 }
 
-
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark - Navigation
- 
+
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    //Pass the band controller
-    if ([segue.identifier isEqualToString:@"newRecordingSegue"]) {
-        UINavigationController *navController = (UINavigationController *)segue.destinationViewController;
-        NewRecordingViewController* newRecording = (NewRecordingViewController *)navController.topViewController;
-        newRecording.managedObjectContext = self.managedObjectContext;
+}
+*/
+
+- (IBAction)analyseButton:(id)sender {
+    static EventsController* eventController = nil;
+    if (eventController == nil) {
+        eventController = [[EventsController alloc] init];
     }
     
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [eventController generateEvents:self.recording];
+    
+    
+    
 }
 
 #pragma mark - Fetched results controller
@@ -169,11 +116,11 @@
         // Create the fetch request for the entity.
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         // Edit the entity name as appropriate.
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Recording" inManagedObjectContext:self.managedObjectContext];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
         [fetchRequest setEntity:entity];
         
         // Edit the sort key as appropriate.
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"dateCreated" ascending:YES];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeOccured" ascending:NO];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
         
         [fetchRequest setSortDescriptors:sortDescriptors];
@@ -240,5 +187,6 @@
     // so tell the table view to process all updates.
     [self.tableView endUpdates];
 }
+
 
 @end

@@ -6,26 +6,19 @@
 //  Copyright (c) 2015 Sean Rankine. All rights reserved.
 //
 
-#ifndef __Baware__WindowSet__
-#define __Baware__WindowSet__
+#import <Foundation/Foundation.h>
+#import "Recording.h"
+#include "opencv2/opencv.hpp"
 
-#include <stdio.h>
+@interface WindowSet : NSObject
 
-class WindowSet{
-private:
-    const float **sensorData;
-    int lengthData;
-    int windowSize, overlap, numOfWindows, numOfFeatures;
-    
-    float **windows;
-    
-public:
-    WindowSet(const float** sensorData, const int lengthData, const int windowSize, const int overlap);
-    ~WindowSet();
-    int getNumOfWindows();
-    int getNumOfFeatures();
-    float** getWindows();
-    
-};
+@property float **sensorData;
+@property int lengthData;
+@property int windowSize, overlap, numOfWindows, numOfFeatures;
+@property float **windows;
+@property cv::Mat features;
 
-#endif /* defined(__Baware__WindowSet__) */
+- (WindowSet*)init:(Recording*)recording windowSize:(int)windowSize overlap:(int)overlap;
+
+
+@end

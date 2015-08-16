@@ -27,6 +27,29 @@
     }
 };
 
+-(float**)getData{
+    float** data = malloc(sizeof(float*)*6);
+    for (int i = 0; i < 6; i++)
+    {
+        data[i] = malloc(sizeof(float)*1000);
+        for (int n = 0; n < 1000; n++) {
+            data[i][n] = [[[self.sensorData objectAtIndex:n] objectAtIndex:i] floatValue];
+        }
+    }
+    return data;
+};
+
+-(float*)getAxis:(int) axisN{
+    if (axisN > 6 || axisN <0) return nil;
+    
+    float* data = malloc(sizeof(float)*1000);
+    for (int i = 0; i < 1000; i++)
+    {
+        data[i] = [[[self.sensorData objectAtIndex:i] objectAtIndex:axisN] floatValue];
+    }
+    return data;
+};
+
 @end
 
 #pragma mark -

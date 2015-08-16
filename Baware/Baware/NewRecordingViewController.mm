@@ -187,11 +187,11 @@
 -(void)cancelData{
     [self.recording.managedObjectContext deleteObject:self.recording];
     
-    NSError *error = nil;
-    if (![self.recording.managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+//    NSError *error = nil;
+//    if (![self.recording.managedObjectContext save:&error]) {
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
     //[self.delegate newRecordingViewController:self didAddRecording:nil];
 }
 

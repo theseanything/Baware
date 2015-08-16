@@ -7,25 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF0201721B7CC730004E0C41 /* RecordingDetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0201711B7CC730004E0C41 /* RecordingDetailViewController.mm */; };
 		AF0B77A81B77C181007CA6FE /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77A71B77C181007CA6FE /* Event.m */; };
-		AF0B77AA1B77C360007CA6FE /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF0B77A91B77C360007CA6FE /* opencv2.framework */; };
-		AF0B77AD1B77C5E9007CA6FE /* SVM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AC1B77C5E9007CA6FE /* SVM.cpp */; };
-		AF0B77B01B78C579007CA6FE /* WindowSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AE1B78C579007CA6FE /* WindowSet.cpp */; };
-		AF0B77B31B78DC8F007CA6FE /* EventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77B21B78DC8F007CA6FE /* EventsController.m */; };
 		AF48DBB91B72170C005611B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBB81B72170C005611B3 /* main.m */; };
 		AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */; };
 		AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC61B72170C005611B3 /* Images.xcassets */; };
 		AF48DBD61B72170C005611B3 /* BawareTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBD51B72170C005611B3 /* BawareTests.m */; };
-		AF48DBE01B721725005611B3 /* MicrosoftBandKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */; };
 		AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE71B7217B9005611B3 /* AppDelegate.m */; };
-		AF48DBF01B7217B9005611B3 /* EventsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */; };
-		AF48DBF21B7217B9005611B3 /* NewRecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */; };
-		AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */; };
+		AF48DBF21B7217B9005611B3 /* NewRecordingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.mm */; };
+		AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.mm */; };
 		AF48DBF61B7217DE005611B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBF51B7217DE005611B3 /* Main.storyboard */; };
 		AF48DBF81B721804005611B3 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF48DBF71B721804005611B3 /* CoreBluetooth.framework */; };
 		AF48DBFA1B7219C3005611B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC81B72170C005611B3 /* LaunchScreen.xib */; };
 		AF48DC061B73B501005611B3 /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DC051B73B501005611B3 /* Recording.m */; };
 		AF48DC091B74E7DB005611B3 /* RawData.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DC081B74E7DB005611B3 /* RawData.m */; };
+		AF7D470B1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7D470A1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework */; };
+		AF7D470D1B7A340300C566A4 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7D470C1B7A340300C566A4 /* opencv2.framework */; };
+		AF7D470F1B7A446300C566A4 /* Percentile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7D470E1B7A446300C566A4 /* Percentile.cpp */; };
+		AF8027101B7A2E8900543554 /* WindowSet.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0095391B79065600CF1659 /* WindowSet.mm */; };
+		AF8027111B7A2E9400543554 /* EventsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77B21B78DC8F007CA6FE /* EventsController.mm */; };
+		AF8027121B7A2EC700543554 /* Classifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,15 +40,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AF0095381B79065600CF1659 /* WindowSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowSet.h; sourceTree = "<group>"; };
+		AF0095391B79065600CF1659 /* WindowSet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WindowSet.mm; sourceTree = "<group>"; };
+		AF0201701B7CC730004E0C41 /* RecordingDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingDetailViewController.h; sourceTree = "<group>"; };
+		AF0201711B7CC730004E0C41 /* RecordingDetailViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordingDetailViewController.mm; sourceTree = "<group>"; };
 		AF0B77A61B77C181007CA6FE /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		AF0B77A71B77C181007CA6FE /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		AF0B77A91B77C360007CA6FE /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		AF0B77AB1B77C5E9007CA6FE /* SVM.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SVM.hpp; sourceTree = "<group>"; };
-		AF0B77AC1B77C5E9007CA6FE /* SVM.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SVM.cpp; sourceTree = "<group>"; };
-		AF0B77AE1B78C579007CA6FE /* WindowSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WindowSet.cpp; sourceTree = "<group>"; };
-		AF0B77AF1B78C579007CA6FE /* WindowSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowSet.h; sourceTree = "<group>"; };
+		AF0B77AB1B77C5E9007CA6FE /* Classifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Classifier.h; sourceTree = "<group>"; };
+		AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Classifier.mm; sourceTree = "<group>"; };
 		AF0B77B11B78DC8F007CA6FE /* EventsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsController.h; sourceTree = "<group>"; };
-		AF0B77B21B78DC8F007CA6FE /* EventsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsController.m; sourceTree = "<group>"; };
+		AF0B77B21B78DC8F007CA6FE /* EventsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventsController.mm; sourceTree = "<group>"; };
 		AF48DBB31B72170C005611B3 /* Baware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baware.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF48DBB71B72170C005611B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF48DBB81B72170C005611B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -57,21 +59,21 @@
 		AF48DBCF1B72170C005611B3 /* BawareTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BawareTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF48DBD41B72170C005611B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF48DBD51B72170C005611B3 /* BawareTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BawareTests.m; sourceTree = "<group>"; };
-		AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
 		AF48DBE11B721771005611B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		AF48DBE31B721771005611B3 /* EventsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EventsListTableViewController.h; sourceTree = "<group>"; };
 		AF48DBE41B721771005611B3 /* NewRecordingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewRecordingViewController.h; sourceTree = "<group>"; };
 		AF48DBE61B721771005611B3 /* RecordingsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingsListTableViewController.h; sourceTree = "<group>"; };
 		AF48DBE71B7217B9005611B3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsListTableViewController.m; sourceTree = "<group>"; };
-		AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewRecordingViewController.m; sourceTree = "<group>"; };
-		AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingsListTableViewController.m; sourceTree = "<group>"; };
+		AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NewRecordingViewController.mm; sourceTree = "<group>"; };
+		AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = RecordingsListTableViewController.mm; sourceTree = "<group>"; };
 		AF48DBF51B7217DE005611B3 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF48DBF71B721804005611B3 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		AF48DC041B73B501005611B3 /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
 		AF48DC051B73B501005611B3 /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
 		AF48DC071B74E7DB005611B3 /* RawData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawData.h; sourceTree = "<group>"; };
 		AF48DC081B74E7DB005611B3 /* RawData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RawData.m; sourceTree = "<group>"; };
+		AF7D470A1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
+		AF7D470C1B7A340300C566A4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		AF7D470E1B7A446300C566A4 /* Percentile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Percentile.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF0B77AA1B77C360007CA6FE /* opencv2.framework in Frameworks */,
+				AF7D470D1B7A340300C566A4 /* opencv2.framework in Frameworks */,
 				AF48DBF81B721804005611B3 /* CoreBluetooth.framework in Frameworks */,
-				AF48DBE01B721725005611B3 /* MicrosoftBandKit_iOS.framework in Frameworks */,
+				AF7D470B1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -120,13 +122,13 @@
 				AF48DC001B73A10A005611B3 /* Application */,
 				AF48DBFC1B73A044005611B3 /* Model and Model Classes */,
 				AF48DBE41B721771005611B3 /* NewRecordingViewController.h */,
-				AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.m */,
+				AF48DBEB1B7217B9005611B3 /* NewRecordingViewController.mm */,
 				AF48DBE61B721771005611B3 /* RecordingsListTableViewController.h */,
-				AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.m */,
+				AF48DBED1B7217B9005611B3 /* RecordingsListTableViewController.mm */,
+				AF0201701B7CC730004E0C41 /* RecordingDetailViewController.h */,
+				AF0201711B7CC730004E0C41 /* RecordingDetailViewController.mm */,
 				AF0B77B11B78DC8F007CA6FE /* EventsController.h */,
-				AF0B77B21B78DC8F007CA6FE /* EventsController.m */,
-				AF48DBE31B721771005611B3 /* EventsListTableViewController.h */,
-				AF48DBE91B7217B9005611B3 /* EventsListTableViewController.m */,
+				AF0B77B21B78DC8F007CA6FE /* EventsController.mm */,
 				AF48DBFF1B73A0F0005611B3 /* Application Resources */,
 				AF48DBB61B72170C005611B3 /* Supporting Files */,
 			);
@@ -162,9 +164,9 @@
 		AF48DBF91B72180B005611B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AF0B77A91B77C360007CA6FE /* opencv2.framework */,
+				AF7D470C1B7A340300C566A4 /* opencv2.framework */,
+				AF7D470A1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework */,
 				AF48DBF71B721804005611B3 /* CoreBluetooth.framework */,
-				AF48DBDF1B721725005611B3 /* MicrosoftBandKit_iOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -172,10 +174,11 @@
 		AF48DBFC1B73A044005611B3 /* Model and Model Classes */ = {
 			isa = PBXGroup;
 			children = (
-				AF0B77AE1B78C579007CA6FE /* WindowSet.cpp */,
-				AF0B77AF1B78C579007CA6FE /* WindowSet.h */,
-				AF0B77AB1B77C5E9007CA6FE /* SVM.hpp */,
-				AF0B77AC1B77C5E9007CA6FE /* SVM.cpp */,
+				AF0095391B79065600CF1659 /* WindowSet.mm */,
+				AF0095381B79065600CF1659 /* WindowSet.h */,
+				AF7D470E1B7A446300C566A4 /* Percentile.cpp */,
+				AF0B77AB1B77C5E9007CA6FE /* Classifier.h */,
+				AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */,
 				AF0B77A61B77C181007CA6FE /* Event.h */,
 				AF0B77A71B77C181007CA6FE /* Event.m */,
 				AF48DC071B74E7DB005611B3 /* RawData.h */,
@@ -306,17 +309,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF0B77AD1B77C5E9007CA6FE /* SVM.cpp in Sources */,
+				AF8027121B7A2EC700543554 /* Classifier.mm in Sources */,
+				AF8027111B7A2E9400543554 /* EventsController.mm in Sources */,
+				AF8027101B7A2E8900543554 /* WindowSet.mm in Sources */,
 				AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */,
-				AF0B77B31B78DC8F007CA6FE /* EventsController.m in Sources */,
-				AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.m in Sources */,
+				AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.mm in Sources */,
+				AF7D470F1B7A446300C566A4 /* Percentile.cpp in Sources */,
 				AF48DBB91B72170C005611B3 /* main.m in Sources */,
 				AF0B77A81B77C181007CA6FE /* Event.m in Sources */,
 				AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */,
 				AF48DC061B73B501005611B3 /* Recording.m in Sources */,
-				AF48DBF21B7217B9005611B3 /* NewRecordingViewController.m in Sources */,
-				AF0B77B01B78C579007CA6FE /* WindowSet.cpp in Sources */,
-				AF48DBF01B7217B9005611B3 /* EventsListTableViewController.m in Sources */,
+				AF0201721B7CC730004E0C41 /* RecordingDetailViewController.mm in Sources */,
+				AF48DBF21B7217B9005611B3 /* NewRecordingViewController.mm in Sources */,
 				AF48DC091B74E7DB005611B3 /* RawData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

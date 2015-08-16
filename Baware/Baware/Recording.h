@@ -24,6 +24,9 @@
 @property (nonatomic, retain) NSSet *events;
 
 -(void)setData:(float**)accData gyrData:(float**)gyrData;
+-(float**)getData;
+-(float*)getAxis:(int)axisN;
+
 
 @end
 

@@ -8,9 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "Recording.h"
+#import "WindowSet.h"
+#import "Classifier.h"
+#import "Event.h"
+#import <Accelerate/Accelerate.h>
+
+//#import "Classifier.h"
+//#import "WindowSet.h"
 
 @interface EventsController : NSObject
 
-@property Recording *recording;
+-(void)generateEvents:(Recording*) recording;
 
 @end
