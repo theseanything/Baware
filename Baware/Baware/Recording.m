@@ -10,7 +10,7 @@
 
 @implementation Recording
 
-@dynamic duration,  dateCreated, accCounter, gyrCounter, sensorData, events;
+@dynamic duration,  dateCreated, accCounter, gyrCounter, sensorData, events, analysed;
 
 -(void)setData:(float **)accData gyrData:(float **)gyrData{
     self.sensorData = [[NSMutableArray alloc]initWithCapacity:1000];

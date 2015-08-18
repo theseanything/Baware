@@ -37,12 +37,16 @@
             
             newEvent.recording = recording;
             [recording addEventsObject:newEvent];
+            recording.analysed = [NSNumber numberWithBool:YES];
+            
             
             NSError *error = nil;
             if (![newEvent.managedObjectContext save:&error]) {
                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
                 abort();
             }
+            
+            
         }
         
         elmNum++;

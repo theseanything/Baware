@@ -8,6 +8,7 @@
     </entity>
     <entity name="Recording" representedClassName="Recording" syncable="YES">
         <attribute name="accCounter" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="analysed" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="dateCreated" attributeType="Date" syncable="YES"/>
         <attribute name="duration" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="gyrCounter" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -15,7 +16,7 @@
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Event" inverseName="recording" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Recording" positionX="-63" positionY="-36" width="128" height="133"/>
         <element name="Event" positionX="180" positionY="-27" width="128" height="103"/>
+        <element name="Recording" positionX="-63" positionY="-36" width="128" height="150"/>
     </elements>
 </model>

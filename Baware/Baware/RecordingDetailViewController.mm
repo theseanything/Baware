@@ -18,7 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *analyseButton;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navBarTitle;
 
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+//@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property NSArray *events;
 
 - (IBAction)analyseButton:(id)sender;
 
@@ -29,28 +30,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     static NSDateFormatter *dateFormatter = nil;
+    static NSDateFormatter *timeFormatter = nil;
+
     if (dateFormatter == nil) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    }
+    if (timeFormatter == nil) {
+        timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setTimeStyle:NSDateFormatterMediumStyle];
     }
     
-    self.timeLabel.text = [dateFormatter stringFromDate:self.recording.dateCreated];
+    self.navBarTitle.title = [dateFormatter stringFromDate:self.recording.dateCreated];
+    
+    self.timeLabel.text = [timeFormatter stringFromDate:self.recording.dateCreated];
     self.durationLabel.text = [NSString stringWithFormat:@"%@ s", self.recording.duration];
     self.numberOfAccelerometerReadings.text = [NSString stringWithFormat:@"%@", self.recording.accCounter];
     self.numberOfGyroscopeReadings.text = [NSString stringWithFormat:@"%@", self.recording.gyrCounter];
     
-    NSError *error = nil;
+    /*NSError *error = nil;
     if (![[self fetchedResultsController] performFetch:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-         */
+
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
-    }
+    }*/
     
-    self.analyseButton.enabled = YES;
+    self.events = [self.recording.events allObjects];
+    
+    
+    if(![self.recording.analysed boolValue]) self.analyseButton.enabled = YES;
 
     // Do any additional setup after loading the view.
 }
@@ -68,7 +76,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[_fetchedResultsController fetchedObjects] count];
+//    return [[_fetchedResultsController fetchedObjects] count];
+    return [self.events count];
+
 }
 
 
@@ -83,14 +93,15 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    static NSDateFormatter *dateFormatter = nil;
-    if (dateFormatter == nil) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    static NSDateFormatter *timeFormatter = nil;
+    if (timeFormatter == nil) {
+        timeFormatter = [[NSDateFormatter alloc] init];
+        [timeFormatter setTimeStyle:NSDateFormatterMediumStyle];
     }
     
-    Event* event = (Event*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [dateFormatter stringFromDate:event.timeOccured];
+    Event* event = [self.events objectAtIndex:indexPath.row];
+    cell.textLabel.text = event.type;
+    cell.detailTextLabel.text = [timeFormatter stringFromDate:event.timeOccured];
     
     //Recording *recording = (Recording *)[self.fetchedResultsController objectAtIndexPath:indexPath];
     //cell.textLabel.text = [dateFormatter stringFromDate:recording.dateCreated];
@@ -113,14 +124,17 @@
         eventController = [[EventsController alloc] init];
         eventController.managedObjectContext = self.managedObjectContext;
     }
-    
     [eventController generateEvents:self.recording];
+    
+    self.events = [self.recording.events allObjects];
+
+    
     [self.tableView reloadData];
     self.analyseButton.enabled = NO;
 }
 
 #pragma mark - Fetched results controller
-
+/*
 - (NSFetchedResultsController *)fetchedResultsController {
     
     // Set up the fetched results controller if needed.
@@ -150,9 +164,9 @@
     return _fetchedResultsController;
 }
 
-/**
- Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
- */
+
+// Delegate methods of NSFetchedResultsController to respond to additions, removals and so on.
+ 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     
     // The fetch controller is about to start sending change notifications, so prepare the table view for updates.
@@ -209,7 +223,7 @@
     // The fetch controller has sent all current change notifications,
     // so tell the table view to process all updates.
     [self.tableView endUpdates];
-}
+}*/
 
 
 @end

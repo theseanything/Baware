@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSDate * dateCreated;
 @property (nonatomic, retain) NSNumber * accCounter;
 @property (nonatomic, retain) NSNumber * gyrCounter;
+@property (nonatomic, retain) NSNumber * analysed;
 @property (nonatomic, retain) id sensorData;
 @property (nonatomic, retain) NSSet *events;
 

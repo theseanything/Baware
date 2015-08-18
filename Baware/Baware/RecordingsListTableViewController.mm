@@ -96,7 +96,7 @@
     static NSDateFormatter *dateFormatter = nil;
     if (dateFormatter == nil) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     }
     
     Recording *recording = (Recording *)[self.fetchedResultsController objectAtIndexPath:indexPath];
