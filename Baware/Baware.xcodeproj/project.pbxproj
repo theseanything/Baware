@@ -21,12 +21,14 @@
 		AF48DBFA1B7219C3005611B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC81B72170C005611B3 /* LaunchScreen.xib */; };
 		AF48DC061B73B501005611B3 /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DC051B73B501005611B3 /* Recording.m */; };
 		AF48DC091B74E7DB005611B3 /* RawData.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DC081B74E7DB005611B3 /* RawData.m */; };
+		AF6DC71B1B80D62800C17192 /* svm_model.xml in Resources */ = {isa = PBXBuildFile; fileRef = AF6DC71A1B80D62800C17192 /* svm_model.xml */; };
 		AF7D470B1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7D470A1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework */; };
 		AF7D470D1B7A340300C566A4 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF7D470C1B7A340300C566A4 /* opencv2.framework */; };
 		AF7D470F1B7A446300C566A4 /* Percentile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7D470E1B7A446300C566A4 /* Percentile.cpp */; };
 		AF8027101B7A2E8900543554 /* WindowSet.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0095391B79065600CF1659 /* WindowSet.mm */; };
 		AF8027111B7A2E9400543554 /* EventsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77B21B78DC8F007CA6FE /* EventsController.mm */; };
 		AF8027121B7A2EC700543554 /* Classifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */; };
+		AFEE78C21B838D770047BC5C /* trainData.csv in Resources */ = {isa = PBXBuildFile; fileRef = AFEE78C11B838D770047BC5C /* trainData.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,9 +73,11 @@
 		AF48DC051B73B501005611B3 /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
 		AF48DC071B74E7DB005611B3 /* RawData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RawData.h; sourceTree = "<group>"; };
 		AF48DC081B74E7DB005611B3 /* RawData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RawData.m; sourceTree = "<group>"; };
+		AF6DC71A1B80D62800C17192 /* svm_model.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svm_model.xml; sourceTree = "<group>"; };
 		AF7D470A1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
 		AF7D470C1B7A340300C566A4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		AF7D470E1B7A446300C566A4 /* Percentile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Percentile.cpp; sourceTree = "<group>"; };
+		AFEE78C11B838D770047BC5C /* trainData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainData.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +189,7 @@
 				AF48DC081B74E7DB005611B3 /* RawData.m */,
 				AF48DC041B73B501005611B3 /* Recording.h */,
 				AF48DC051B73B501005611B3 /* Recording.m */,
+				AF6DC71A1B80D62800C17192 /* svm_model.xml */,
 				AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */,
 			);
 			name = "Model and Model Classes";
@@ -193,6 +198,7 @@
 		AF48DBFF1B73A0F0005611B3 /* Application Resources */ = {
 			isa = PBXGroup;
 			children = (
+				AFEE78C11B838D770047BC5C /* trainData.csv */,
 				AF48DBF51B7217DE005611B3 /* Main.storyboard */,
 				AF48DBC61B72170C005611B3 /* Images.xcassets */,
 				AF48DBC81B72170C005611B3 /* LaunchScreen.xib */,
@@ -291,7 +297,9 @@
 			files = (
 				AF48DBFA1B7219C3005611B3 /* LaunchScreen.xib in Resources */,
 				AF48DBF61B7217DE005611B3 /* Main.storyboard in Resources */,
+				AF6DC71B1B80D62800C17192 /* svm_model.xml in Resources */,
 				AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */,
+				AFEE78C21B838D770047BC5C /* trainData.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

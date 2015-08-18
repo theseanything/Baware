@@ -11,13 +11,18 @@
 #import "WindowSet.h"
 #import "Classifier.h"
 #import "Event.h"
-#import <Accelerate/Accelerate.h>
+#import <CoreData/CoreData.h>
+
 
 //#import "Classifier.h"
 //#import "WindowSet.h"
 
 @interface EventsController : NSObject
 
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property NSTimeInterval windowDuration;
+
 -(void)generateEvents:(Recording*) recording;
+
 
 @end

@@ -27,6 +27,7 @@
 
 @property int a;
 @property int g;
+@property NSDate *startRecordingTime;
 
 @property RawData *rawData;
 
@@ -69,6 +70,8 @@
         
         self.a = 0;
         self.g = 0;
+        
+        self.startRecordingTime = [NSDate date];
         
         [self.client.sensorManager startAccelerometerUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorAccelerometerData *accelerometerData, NSError *error) {
             
@@ -130,7 +133,7 @@
         self.recording = (Recording *)[NSEntityDescription insertNewObjectForEntityForName:@"Recording" inManagedObjectContext:self.managedObjectContext];
     }
     
-    self.recording.dateCreated = [NSDate date];
+    self.recording.dateCreated = self.startRecordingTime;
     
     self.recording.accCounter = [[NSNumber alloc] initWithInt:self.a];
     self.recording.gyrCounter = [[NSNumber alloc] initWithInt:self.g];
@@ -143,14 +146,17 @@
 
 -(void)displayRecordingInfo
 {
-    self.accCounterLabel.text = [NSString stringWithFormat:@"%d", self.a];
-    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%d", self.g];
+    self.accCounterLabel.text = [NSString stringWithFormat:@"%@", self.recording.accCounter];
+    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%@", self.recording.gyrCounter];
     self.durationLabel.text = [NSString stringWithFormat:@"%@ s", [self calculateDuration:self.a gyrCounter:self.g]];
     
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    static NSDateFormatter *dateFormatter;
+    if (dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+    }
     
-    self.timeLabel.text = [dateFormatter stringFromDate:[NSDate date]];
+    self.timeLabel.text = [dateFormatter stringFromDate:self.recording.dateCreated];
     
 }
 

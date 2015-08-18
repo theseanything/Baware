@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "WindowSet.h"
+#import "Event.h"
+
 #include "opencv2/opencv.hpp"
 
 
@@ -18,7 +20,7 @@
 
 -(Classifier*)init;
 
--(NSMutableSet*)classify:(WindowSet*) windowSet;
+-(std::vector<float>)classify:(WindowSet*) windowSet;
 
 @end
 

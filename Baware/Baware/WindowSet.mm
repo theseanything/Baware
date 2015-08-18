@@ -17,7 +17,7 @@ using namespace cv::ml;
 
 @implementation WindowSet
 
-- (WindowSet*)init:(Recording*)recording windowSize:(int)windowSize overlap:(int)overlap
+- (WindowSet*)init:(Recording*)recording windowSize:(int)windowSize percent_overlap:(int)percent_overlap
 {
     self = [super init];
     if (self)
@@ -38,15 +38,28 @@ using namespace cv::ml;
         std::vector<float> VgY(gY, gY+1000);
         std::vector<float> VgZ(gZ, gZ+1000);
         
-        self.features = cv::Mat(5,4,CV_32FC1,Scalar(0));
+        int overlap = 0;
+        
+        if (percent_overlap > 100 || percent_overlap < 0) {
+            std::cout << "Error overlap not correctly specified - needs to be between 0 - 100\n Defaulted to 0\n" << std::endl;
+            percent_overlap = 0;
+        }
+        else{
+            if (percent_overlap == 100) {
+                percent_overlap = 99;
+            }
+            overlap = windowSize * (percent_overlap/100);
+        }
+        
+        
+        int numOfWindows = 1000/(windowSize-overlap);
+        
+        self.features = cv::Mat(numOfWindows+1, 4, CV_32FC1, Scalar(0));
 
 
         int windowNum = 0;
-        for (int i = 0; i < 1000; i += windowSize){
-            float axP25 = [self percentile:25 array:VaX start:i stop:i+windowSize];
-            self.features.at<float>(windowNum,0) = axP25;
-            NSLog([NSString stringWithFormat:@"%f", axP25]);
-            NSLog([NSString stringWithFormat:@"%f",self.features.at<float>(windowNum,0)]);
+        for (int i = 0; i < 1000; i += (windowSize-overlap)){
+            self.features.at<float>(windowNum,0) = [self percentile:25 array:VaX start:i stop:i+windowSize];
             //float aMperc50;
             //float gZabsAvg;;lm
             self.features.at<float>(windowNum,1) = [self avg:VaX start:i stop:i+windowSize];
@@ -56,31 +69,14 @@ using namespace cv::ml;
             windowNum++;
         }
         
-
+        if (windowNum == numOfWindows) std::cout << "Correct windows size." << std::endl;
         
-        //Mat matrix(6, 1000,CV_32FC1, &data);
-        //Scalar ans = mean(matrix);
+        self.features.at<float>(windowNum,0) = -0.772166667;
+        self.features.at<float>(windowNum,1) = -0.94;
+        self.features.at<float>(windowNum,2) = 0.235;
+        self.features.at<float>(windowNum,3) = 0.61;
         
-        
-
-        
-        /*self.lengthData = [recording.sensorData le;
-        windowSize = _windowSize;
-        overlap = _overlap;
-
-
-        int windowNum = 0;
-        for (int i = 0; i < lengthData; i += overlap){
-            
-            for (int n = 0 ; n < windowSize; n++) {
-                
-                
-            }
-            
-            windows[windowNum] = featureSet;
-            windowNum++;
-        }
-         */
+        self.windowTimeInterval = (windowSize-overlap)*32/1000;
  
     }
     return self;

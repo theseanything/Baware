@@ -38,6 +38,19 @@
     self.durationLabel.text = [NSString stringWithFormat:@"%@ s", self.recording.duration];
     self.numberOfAccelerometerReadings.text = [NSString stringWithFormat:@"%@", self.recording.accCounter];
     self.numberOfGyroscopeReadings.text = [NSString stringWithFormat:@"%@", self.recording.gyrCounter];
+    
+    NSError *error = nil;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    self.analyseButton.enabled = YES;
 
     // Do any additional setup after loading the view.
 }
@@ -55,8 +68,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if(self.recording.events != nil) return [self.recording.events count];
-    return 1;
+    return [[_fetchedResultsController fetchedObjects] count];
 }
 
 
@@ -99,12 +111,12 @@
     static EventsController* eventController = nil;
     if (eventController == nil) {
         eventController = [[EventsController alloc] init];
+        eventController.managedObjectContext = self.managedObjectContext;
     }
     
     [eventController generateEvents:self.recording];
-    
-    
-    
+    [self.tableView reloadData];
+    self.analyseButton.enabled = NO;
 }
 
 #pragma mark - Fetched results controller
@@ -120,10 +132,13 @@
         [fetchRequest setEntity:entity];
         
         // Edit the sort key as appropriate.
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeOccured" ascending:NO];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"type" ascending:NO];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
         
         [fetchRequest setSortDescriptors:sortDescriptors];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"recording == %@", self.recording];
+        [fetchRequest setPredicate:predicate];
         
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
@@ -177,6 +192,14 @@
             
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            NSLog(@"A table item was moved");
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            NSLog(@"A table item was updated");
             break;
     }
 }
