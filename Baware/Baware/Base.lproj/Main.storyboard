@@ -399,6 +399,7 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Title" id="GBA-JP-oEQ">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Rne-Pv-59j"/>
                         <barButtonItem key="rightBarButtonItem" enabled="NO" title="Analyse" id="Dj6-4b-29G">
                             <connections>
                                 <action selector="analyseButton:" destination="R9B-tj-dmb" id="XEX-lD-1lG"/>
