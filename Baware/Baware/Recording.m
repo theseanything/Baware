@@ -12,15 +12,15 @@
 
 @dynamic duration,  dateCreated, accCounter, gyrCounter, sensorData, events, analysed;
 
--(void)setData:(float **)accData gyrData:(float **)gyrData{
-    self.sensorData = [[NSMutableArray alloc]initWithCapacity:1000];
-    for (int i = 0; i < 1000; i++) {
-        NSNumber *aX = [[NSNumber alloc] initWithDouble:accData[i][0]];
-        NSNumber *aY = [[NSNumber alloc] initWithDouble:accData[i][1]];
-        NSNumber *aZ = [[NSNumber alloc] initWithDouble:accData[i][2]];
-        NSNumber *gX = [[NSNumber alloc] initWithDouble:gyrData[i][0]];
-        NSNumber *gY = [[NSNumber alloc] initWithDouble:gyrData[i][1]];
-        NSNumber *gZ = [[NSNumber alloc] initWithDouble:gyrData[i][2]];
+-(void)setData:(RawData*)rawData{
+    self.sensorData = [[NSMutableArray alloc]initWithCapacity:rawData.size];
+    for (int i = 0; i < rawData.size; i++) {
+        NSNumber *aX = [[NSNumber alloc] initWithFloat:rawData.accDataArray[0][i]];
+        NSNumber *aY = [[NSNumber alloc] initWithFloat:rawData.accDataArray[1][i]];
+        NSNumber *aZ = [[NSNumber alloc] initWithFloat:rawData.accDataArray[2][i]];
+        NSNumber *gX = [[NSNumber alloc] initWithFloat:rawData.gyrDataArray[0][i]];
+        NSNumber *gY = [[NSNumber alloc] initWithFloat:rawData.gyrDataArray[1][i]];
+        NSNumber *gZ = [[NSNumber alloc] initWithFloat:rawData.gyrDataArray[2][i]];
         
         NSArray *dataInstance = [[NSArray alloc] initWithObjects:aX, aY, aZ, gX, gY, gZ, nil];
         [self.sensorData addObject:dataInstance];
@@ -33,7 +33,7 @@
     {
         data[i] = malloc(sizeof(float)*1000);
         for (int n = 0; n < 1000; n++) {
-            data[i][n] = [[[self.sensorData objectAtIndex:n] objectAtIndex:i] floatValue];
+            data[i][n] = [[[self.sensorData objectAtIndex:i] objectAtIndex:n] floatValue];
         }
     }
     return data;

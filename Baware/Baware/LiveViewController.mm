@@ -1,39 +1,35 @@
 //
-//  NewRecordingViewController.m
-//  Baware 2
+//  LiveViewController.m
+//  Baware
 //
-//  Created by Sean Rankine on 04/08/2015.
+//  Created by Sean Rankine on 19/08/2015.
 //  Copyright (c) 2015 Sean Rankine. All rights reserved.
 //
 
-#import "NewRecordingViewController.h"
+#import "LiveViewController.h"
 
-@interface NewRecordingViewController ()
+@interface LiveViewController ()
 @property (nonatomic, weak) MSBClient *client;
-
+@property (weak, nonatomic) IBOutlet UILabel *bandStatusLabel;
 - (IBAction)startButton:(id)sender;
 - (IBAction)stopButton:(id)sender;
 
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
-@property (weak, nonatomic) IBOutlet UITextView *console;
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *stopButton;
-
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *durationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *accCounterLabel;
-@property (weak, nonatomic) IBOutlet UILabel *gyrCounterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *activityLabel;
 
 @property int a;
 @property int g;
 @property NSDate *startRecordingTime;
+@property NSNumber *timeLiveFor;
+@property BOOL isBrushing;
 
 @property RawData *rawData;
 
 @end
 
-@implementation NewRecordingViewController
+@implementation LiveViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +43,7 @@
     }
     [[MSBClientManager sharedManager] connectClient:_client];
     [self output:@"Please wait. Connecting to Band..."];
+    self.timeLiveFor = @60;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,16 +57,24 @@
     
     if (self.client && self.client.isDeviceConnected)
     {
-        [self output:@"Starting Accelerometer updates..."];
+        [self output:@"Collecting sensor readings..."];
         self.stopButton.enabled = YES;
         self.startButton.enabled = NO;
         
+        int windowSize = [self.timeLiveFor intValue]*1000*32;
+        int interval = 200;
+        
         if(self.rawData == nil) {
-            self.rawData = [[RawData alloc] init:1000];
+            self.rawData = [[RawData alloc] init:windowSize];
         }
         
         self.a = 0;
         self.g = 0;
+        
+        dispatch_queue_t myQueue = dispatch_queue_create("My Queue",NULL);
+        EventsController* eventsController = [[EventsController alloc] init];
+        self.isBrushing = NO;
+        
         
         self.startRecordingTime = [NSDate date];
         
@@ -79,6 +84,20 @@
             self.rawData.accDataArray[1][self.a] = accelerometerData.y;
             self.rawData.accDataArray[2][self.a] = accelerometerData.z;
             self.a++;
+            if (self.a%interval == 0){
+                dispatch_async(myQueue, ^{
+                    self.isBrushing = [eventsController classifyEvent:[self.rawData subData:interval*(self.a/interval)-1 period:interval]];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        if (self.isBrushing) self.activityLabel.text = @"Brushing";
+                        else self.activityLabel.text = @"Not Brushing";
+                    });
+                });
+            }
+            
+            if (self.a >= windowSize){
+                [self stopButton:nil];
+            }
             
         }];
         
@@ -88,9 +107,11 @@
             self.rawData.gyrDataArray[1][self.g] = gyroscopeData.y;
             self.rawData.gyrDataArray[2][self.g] = gyroscopeData.z;
             self.g++;
-            
+            if (self.g >= windowSize){
+                [self stopButton:nil];
+            }
         }];
-
+        
     }
     else
     {
@@ -101,21 +122,17 @@
 }
 
 
+
+
 - (IBAction)stopButton:(id)sender {
     [self stopUpdates];
-    [self createRecording];
-    [self displayRecordingInfo];
     
     self.stopButton.enabled = NO;
     self.startButton.enabled = YES;
-    self.saveButton.enabled = YES;
 }
 
 - (void)output:(NSString *)message {
-    self.console.text = [NSString stringWithFormat:@"%@\n%@", self.console.text, message];
-    CGPoint p = [self.console contentOffset];
-    [self.console setContentOffset:p animated:NO];
-    [self.console scrollRangeToVisible:NSMakeRange([self.console.text length], 0)];
+    self.bandStatusLabel.text = message;
 }
 
 
@@ -127,38 +144,8 @@
     [self output:@"Updates stopped."];
 }
 
--(void)createRecording
-{
-    if(self.recording == nil) {
-        self.recording = (Recording *)[NSEntityDescription insertNewObjectForEntityForName:@"Recording" inManagedObjectContext:self.managedObjectContext];
-    }
-    
-    self.recording.dateCreated = self.startRecordingTime;
-    
-    self.recording.accCounter = [[NSNumber alloc] initWithInt:self.a];
-    self.recording.gyrCounter = [[NSNumber alloc] initWithInt:self.g];
-    
-    self.recording.duration = [self calculateDuration:self.a gyrCounter:self.g];
-    
-    [self.recording setData:self.rawData];
-    
-}
 
--(void)displayRecordingInfo
-{
-    self.accCounterLabel.text = [NSString stringWithFormat:@"%@", self.recording.accCounter];
-    self.gyrCounterLabel.text = [NSString stringWithFormat:@"%@", self.recording.gyrCounter];
-    self.durationLabel.text = [NSString stringWithFormat:@"%@ s", [self calculateDuration:self.a gyrCounter:self.g]];
-    
-    static NSDateFormatter *dateFormatter;
-    if (dateFormatter == nil) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-    }
-    
-    self.timeLabel.text = [dateFormatter stringFromDate:self.recording.dateCreated];
-    
-}
+
 
 -(NSNumber*)calculateDuration:(int)aCount gyrCounter:(int)gCount{
     if(aCount>gCount) return [[NSNumber alloc] initWithInt:(self.g*32/1000)];
@@ -172,33 +159,7 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     [[MSBClientManager sharedManager] cancelClientConnection:_client];
-    if (sender != self.saveButton){
-        [self cancelData];
-        return;
-    }
-    if (self.recording != nil) {
-        [self saveData];
-    }
-}
 
-- (void)saveData{
-    NSError *error = nil;
-    if (![self.recording.managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    //[self.delegate newRecordingViewController:self didAddRecording:self.recording];
-}
-
--(void)cancelData{
-    [self.recording.managedObjectContext deleteObject:self.recording];
-    
-//    NSError *error = nil;
-//    if (![self.recording.managedObjectContext save:&error]) {
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }
-    //[self.delegate newRecordingViewController:self didAddRecording:nil];
 }
 
 
@@ -230,6 +191,5 @@
     self.stopButton.enabled = NO;
     
 }
-
 @end
 

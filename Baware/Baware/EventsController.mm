@@ -71,6 +71,20 @@
     
 }
 
+-(BOOL)classifyEvent:(RawData*)rawData{
+    static Classifier* classifier;
+    if (classifier == nil) classifier = [[Classifier alloc]init];
+    
+    WindowSet* windowSet = [[WindowSet alloc] init:rawData];
+    
+    std::vector<float> array = [classifier classify:windowSet];
+    
+    if (array[0] == 1) return YES;
+    
+    return NO;
+}
+
+
 -(int)windowSizeFromDuration:(NSTimeInterval)durationInSecs{
     return durationInSecs*1000/32;
 }

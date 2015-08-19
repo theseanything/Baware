@@ -82,6 +82,30 @@ using namespace cv::ml;
     return self;
 }
 
+- (WindowSet*)init:(RawData*)rawData{
+    self = [super init];
+    if (self)
+    {
+    self.features = cv::Mat(1, 4, CV_32FC1, Scalar(0));
+    
+    std::vector<float> VaX(rawData.accDataArray[0], rawData.accDataArray[0]+rawData.size);
+    std::vector<float> VaY(rawData.accDataArray[1], rawData.accDataArray[1]+rawData.size);
+    std::vector<float> VaZ(rawData.accDataArray[2], rawData.accDataArray[2]+rawData.size);
+    std::vector<float> VgX(rawData.gyrDataArray[0], rawData.gyrDataArray[0]+rawData.size);
+    std::vector<float> VgY(rawData.gyrDataArray[1], rawData.gyrDataArray[1]+rawData.size);
+    std::vector<float> VgZ(rawData.gyrDataArray[2], rawData.gyrDataArray[2]+rawData.size);
+    
+    self.features.at<float>(0,0) = [self percentile:25 array:VaX start:0 stop:rawData.size];
+    //float aMperc50;
+    //float gZabsAvg;;lm
+    self.features.at<float>(0,1) = [self avg:VaX start:0 stop:rawData.size];
+    //float aYzeroCrossings;
+    self.features.at<float>(0,2) = [self percentile:25 array:VaZ start:0 stop:rawData.size];
+    self.features.at<float>(0,3) = [self percentile:50 array:VaZ start:0 stop:rawData.size];
+    }
+    return self;
+}
+
 -(float)percentile:(int)percent array:(std::vector<float>)input start:(int)start stop:(int)stop{
     std::vector<float>::const_iterator first = input.begin() + start;
     std::vector<float>::const_iterator last = input.begin() + stop;

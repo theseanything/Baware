@@ -24,5 +24,7 @@
 
 -(void)generateEvents:(Recording*) recording;
 
+-(BOOL)classifyEvent:(RawData*)rawData;
+
 
 @end

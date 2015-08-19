@@ -12,5 +12,10 @@
 
 @property float **accDataArray;
 @property float **gyrDataArray;
+@property int size;
+
+- (RawData*)init:(int)bufferSize;
+-(RawData*)subData:(int)start period:(int)period;
+
 
 @end

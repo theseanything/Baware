@@ -16,6 +16,7 @@
 @property NSTimeInterval windowTimeInterval;
 
 - (WindowSet*)init:(Recording*)recording windowSize:(int)windowSize percent_overlap:(int)percent_overlap;
+- (WindowSet*)init:(RawData*)rawData;
 
 
 @end

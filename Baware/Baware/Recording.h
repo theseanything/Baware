@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "RawData.h"
 
 //@interface ArrayToDataTransformer : NSValueTransformer
 //@end
@@ -24,7 +25,7 @@
 @property (nonatomic, retain) id sensorData;
 @property (nonatomic, retain) NSSet *events;
 
--(void)setData:(float**)accData gyrData:(float**)gyrData;
+-(void)setData:(RawData*)rawData;
 -(float**)getData;
 -(float*)getAxis:(int)axisN;
 

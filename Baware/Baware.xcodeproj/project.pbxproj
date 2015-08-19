@@ -29,6 +29,7 @@
 		AF8027111B7A2E9400543554 /* EventsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77B21B78DC8F007CA6FE /* EventsController.mm */; };
 		AF8027121B7A2EC700543554 /* Classifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */; };
 		AFEE78C21B838D770047BC5C /* trainData.csv in Resources */ = {isa = PBXBuildFile; fileRef = AFEE78C11B838D770047BC5C /* trainData.csv */; };
+		AFEE78CC1B84A3FC0047BC5C /* LiveViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEE78CA1B84A3FC0047BC5C /* LiveViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,8 @@
 		AF7D470C1B7A340300C566A4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		AF7D470E1B7A446300C566A4 /* Percentile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Percentile.cpp; sourceTree = "<group>"; };
 		AFEE78C11B838D770047BC5C /* trainData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainData.csv; sourceTree = "<group>"; };
+		AFEE78CA1B84A3FC0047BC5C /* LiveViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LiveViewController.mm; sourceTree = "<group>"; };
+		AFEE78CB1B84A3FC0047BC5C /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 		AF48DBB51B72170C005611B3 /* Baware */ = {
 			isa = PBXGroup;
 			children = (
+				AFEE78CA1B84A3FC0047BC5C /* LiveViewController.mm */,
+				AFEE78CB1B84A3FC0047BC5C /* LiveViewController.h */,
 				AF48DC001B73A10A005611B3 /* Application */,
 				AF48DBFC1B73A044005611B3 /* Model and Model Classes */,
 				AF48DBE41B721771005611B3 /* NewRecordingViewController.h */,
@@ -323,6 +328,7 @@
 				AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */,
 				AF48DBF41B7217B9005611B3 /* RecordingsListTableViewController.mm in Sources */,
 				AF7D470F1B7A446300C566A4 /* Percentile.cpp in Sources */,
+				AFEE78CC1B84A3FC0047BC5C /* LiveViewController.mm in Sources */,
 				AF48DBB91B72170C005611B3 /* main.m in Sources */,
 				AF0B77A81B77C181007CA6FE /* Event.m in Sources */,
 				AF48DBEE1B7217B9005611B3 /* AppDelegate.m in Sources */,
