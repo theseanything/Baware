@@ -12,8 +12,37 @@
 
 @dynamic duration,  dateCreated, accCounter, gyrCounter, sensorData, events, analysed;
 
--(void)setData:(RawData*)rawData{
+-(void)setData:(RawData*)rawData{;
+    /*
+    NSMutableArray *aX = [[NSMutableArray alloc] initWithCapacity:rawData.size];
+    NSMutableArray *aY = [[NSMutableArray alloc] initWithCapacity:rawData.size];
+    NSMutableArray *aZ = [[NSMutableArray alloc] initWithCapacity:rawData.size];
+    NSMutableArray *gX = [[NSMutableArray alloc] initWithCapacity:rawData.size];
+    NSMutableArray *gY = [[NSMutableArray alloc] initWithCapacity:rawData.size];
+    NSMutableArray *gZ = [[NSMutableArray alloc] initWithCapacity:rawData.size];
+    
+    for (int i = 0; i < rawData.size; i++) {
+        [aX addObject: [[NSNumber alloc] initWithFloat:rawData.accDataArray[0][i]]];
+        [aY addObject: [[NSNumber alloc] initWithFloat:rawData.accDataArray[1][i]]];
+        [aZ addObject: [[NSNumber alloc] initWithFloat:rawData.accDataArray[2][i]]];
+        [gX addObject: [[NSNumber alloc] initWithFloat:rawData.gyrDataArray[0][i]]];
+        [gY addObject: [[NSNumber alloc] initWithFloat:rawData.gyrDataArray[1][i]]];
+        [gZ addObject: [[NSNumber alloc] initWithFloat:rawData.gyrDataArray[2][i]]];
+    }
+    
+    self.sensorData = [[NSArray alloc] initWithObjects:aX, aY, aZ, gX, gY, gZ, nil];
+    
+    for (int i = 0; i < 7; i++) {
+        NSLog(@"rawDataOUT: %f", rawData.accDataArray[2][i]);
+        NSLog(@"sensorDataIN: %f", [[[self.sensorData objectAtIndex:i]objectAtIndex:2]floatValue]);
+    }*/
+    
+    
+    
+    
+    
     self.sensorData = [[NSMutableArray alloc]initWithCapacity:rawData.size];
+    
     for (int i = 0; i < rawData.size; i++) {
         NSNumber *aX = [[NSNumber alloc] initWithFloat:rawData.accDataArray[0][i]];
         NSNumber *aY = [[NSNumber alloc] initWithFloat:rawData.accDataArray[1][i]];
@@ -25,20 +54,16 @@
         NSArray *dataInstance = [[NSArray alloc] initWithObjects:aX, aY, aZ, gX, gY, gZ, nil];
         [self.sensorData addObject:dataInstance];
     }
+    
+
 };
 
--(float**)getData{
-    float** data = malloc(sizeof(float*)*6);
-    for (int i = 0; i < 6; i++)
-    {
-        data[i] = malloc(sizeof(float)*1000);
-        for (int n = 0; n < 1000; n++) {
-            data[i][n] = [[[self.sensorData objectAtIndex:i] objectAtIndex:n] floatValue];
-        }
-    }
-    return data;
+-(RawData*)getData{
+    RawData* rawData = [[RawData alloc] initWithArray:self.sensorData];
+    return rawData;
 };
 
+/*
 -(float*)getAxis:(int) axisN{
     if (axisN > 6 || axisN <0) return nil;
     
@@ -48,7 +73,7 @@
         data[i] = [[[self.sensorData objectAtIndex:i] objectAtIndex:axisN] floatValue];
     }
     return data;
-};
+};*/
 
 @end
 

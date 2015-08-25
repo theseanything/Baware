@@ -26,7 +26,7 @@
 @property (nonatomic, retain) NSSet *events;
 
 -(void)setData:(RawData*)rawData;
--(float**)getData;
+-(RawData*)getData;
 -(float*)getAxis:(int)axisN;
 
 

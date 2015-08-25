@@ -15,6 +15,7 @@
 @property int size;
 
 - (RawData*)init:(int)bufferSize;
+- (RawData*)initWithArray:(NSMutableArray*)array;
 -(RawData*)subData:(int)start period:(int)period;
 
 

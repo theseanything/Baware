@@ -76,8 +76,8 @@ using namespace cv::ml;
         Mat trainingDataMat(rrows-1, ccols, CV_32FC1, trainingData);
         Mat labelsMat(rrows-1, 1, CV_32SC1, labels);
         
-        std::cout << "T = "<< std::endl << " "  << trainingDataMat << std::endl << std::endl;
-        std::cout << "L = "<< std::endl << " "  << labelsMat << std::endl << std::endl;
+        //std::cout << "T = "<< std::endl << " "  << trainingDataMat << std::endl << std::endl;
+        //std::cout << "L = "<< std::endl << " "  << labelsMat << std::endl << std::endl;
 
         // Train the SVM
         self.svm = SVM::create();

@@ -32,6 +32,40 @@
     return self;
 }
 
+- (RawData*)initWithArray:(NSMutableArray*)array
+{
+    self = [super init];
+    if (self)
+    {
+        int bufferSize = [array count];
+        NSLog([NSString stringWithFormat:@"%d", bufferSize]);
+        self.accDataArray = malloc(sizeof(float*)*3);
+        for (int i = 0; i < 3; i++)
+        {
+            self.accDataArray[i] = malloc(sizeof(float)*bufferSize);
+            for (int n = 0; n < bufferSize; n++) {
+                self.accDataArray[i][n] = [[[array objectAtIndex:n] objectAtIndex:i] floatValue];
+                //NSLog([[[array objectAtIndex:i] objectAtIndex:n] stringValue]);
+            }
+        }
+        self.gyrDataArray = malloc(sizeof(float*)*3);
+        for (int i = 0; i < 3; i++)
+        {
+            self.gyrDataArray[i] = malloc(sizeof(float)*bufferSize);
+            for(int n = 0; n < bufferSize; n++) {
+                self.gyrDataArray[i][n] = [[[array objectAtIndex:n] objectAtIndex:(i+3)] floatValue];
+            }
+        }
+        for (int i = 0; i<1000; i = i + 100) {
+            NSLog(@"rawDataIN: %f", self.accDataArray[2][i]);
+            NSLog(@"sensorDataOUT %f", [[[array objectAtIndex:i]objectAtIndex:2]floatValue]);
+        }
+        
+        self.size = bufferSize;
+    }
+    return self;
+}
+
 -(RawData*)subData:(int)start period:(int)period{
     RawData* subData = [[RawData alloc] init:period];
     subData.accDataArray = self.accDataArray;

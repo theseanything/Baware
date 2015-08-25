@@ -22,21 +22,25 @@ using namespace cv::ml;
     self = [super init];
     if (self)
     {
-        float **data = [recording getData];
-        float *aX = data[0];
-        float *aY = data[1];
-        float *aZ = data[2];
-        float *gX = data[3];
-        float *gY = data[4];
-        float *gZ = data[5];
+        RawData *rawData = [recording getData];
+        
+        float **aData = rawData.accDataArray;
+        float **gData = rawData.accDataArray;
+
+        float *aX = aData[0];
+        float *aY = aData[1];
+        float *aZ = aData[2];
+        float *gX = gData[0];
+        float *gY = gData[1];
+        float *gZ = gData[2];
 
         
-        std::vector<float> VaX(aX, aX+1000);
-        std::vector<float> VaY(aY, aY+1000);
-        std::vector<float> VaZ(aZ, aZ+1000);
-        std::vector<float> VgX(gX, gX+1000);
-        std::vector<float> VgY(gY, gY+1000);
-        std::vector<float> VgZ(gZ, gZ+1000);
+        std::vector<float> VaX(aX, aX + rawData.size);
+        std::vector<float> VaY(aY, aY + rawData.size);
+        std::vector<float> VaZ(aZ, aZ + rawData.size);
+        std::vector<float> VgX(gX, gX + rawData.size);
+        std::vector<float> VgY(gY, gY + rawData.size);
+        std::vector<float> VgZ(gZ, gZ + rawData.size);
         
         int overlap = 0;
         
@@ -52,13 +56,18 @@ using namespace cv::ml;
         }
         
         
-        int numOfWindows = 1000/(windowSize-overlap);
+        int numOfWindows = rawData.size/(windowSize-overlap);
         
         self.features = cv::Mat(numOfWindows+1, 4, CV_32FC1, Scalar(0));
+        
+        NSLog(@"rawData.size = %d", rawData.size);
+        NSLog(@"windowSize = %d", windowSize);
+        NSLog(@"overlap = %d", overlap);
+        NSLog(@"numberOfwindows = %d", numOfWindows);
 
 
         int windowNum = 0;
-        for (int i = 0; i < 1000; i += (windowSize-overlap)){
+        for (int i = 0; i < rawData.size; i = i + (windowSize-overlap)){
             self.features.at<float>(windowNum,0) = [self percentile:25 array:VaX start:i stop:i+windowSize];
             //float aMperc50;
             //float gZabsAvg;;lm
@@ -67,7 +76,10 @@ using namespace cv::ml;
             self.features.at<float>(windowNum,2) = [self percentile:25 array:VaZ start:i stop:i+windowSize];
             self.features.at<float>(windowNum,3) = [self percentile:50 array:VaZ start:i stop:i+windowSize];
             windowNum++;
+            NSLog(@"LOOP -------------------- WindowNumber = %d", windowNum);
         }
+        
+        NSLog(@"endWindowNumber = %d", windowNum);
         
         if (windowNum == numOfWindows) std::cout << "Correct windows size." << std::endl;
         
@@ -112,6 +124,7 @@ using namespace cv::ml;
     std::vector<float> array(first, last);
     
     std::nth_element(array.begin(), array.begin() + (percent*array.size())/100, array.end());
+    
     return array[percent*array.size()/100];
 }
 

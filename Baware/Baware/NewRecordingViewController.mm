@@ -65,7 +65,7 @@
         self.startButton.enabled = NO;
         
         if(self.rawData == nil) {
-            self.rawData = [[RawData alloc] init:1000];
+            self.rawData = [[RawData alloc] init:10000];
         }
         
         self.a = 0;
