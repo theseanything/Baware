@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Accelerate/Accelerate.h>
 #import "WindowSet.h"
 #import "Event.h"
 
 #include "opencv2/opencv.hpp"
 
-
-
 @interface Classifier : NSObject
 
-@property cv::Ptr<cv::ml::SVM> svm;
+@property cv::Ptr<cv::ml::KNearest> knn;
 
 -(Classifier*)init;
 

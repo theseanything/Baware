@@ -37,10 +37,6 @@
         NSLog(@"sensorDataIN: %f", [[[self.sensorData objectAtIndex:i]objectAtIndex:2]floatValue]);
     }*/
     
-    
-    
-    
-    
     self.sensorData = [[NSMutableArray alloc]initWithCapacity:rawData.size];
     
     for (int i = 0; i < rawData.size; i++) {
@@ -63,21 +59,22 @@
     return rawData;
 };
 
-/*
--(float*)getAxis:(int) axisN{
-    if (axisN > 6 || axisN <0) return nil;
-    
-    float* data = malloc(sizeof(float)*1000);
-    for (int i = 0; i < 1000; i++)
-    {
-        data[i] = [[[self.sensorData objectAtIndex:i] objectAtIndex:axisN] floatValue];
-    }
-    return data;
-};*/
 
 @end
 
 #pragma mark -
+
+/*
+ -(float*)getAxis:(int) axisN{
+ if (axisN > 6 || axisN <0) return nil;
+ 
+ float* data = malloc(sizeof(float)*1000);
+ for (int i = 0; i < 1000; i++)
+ {
+ data[i] = [[[self.sensorData objectAtIndex:i] objectAtIndex:axisN] floatValue];
+ }
+ return data;
+ };*/
 
 /*@implementation ArrayToDataTransformer
 

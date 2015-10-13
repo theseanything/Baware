@@ -22,10 +22,11 @@ using namespace cv::ml;
     self = [super init];
     if (self)
     {
+        // extract accelerometer and gyrometer data from a saved recording object
         RawData *rawData = [recording getData];
         
         float **aData = rawData.accDataArray;
-        float **gData = rawData.accDataArray;
+        float **gData = rawData.gyrDataArray;
 
         float *aX = aData[0];
         float *aY = aData[1];
@@ -35,6 +36,7 @@ using namespace cv::ml;
         float *gZ = gData[2];
 
         
+        // convert the data into C++ vector arrays
         std::vector<float> VaX(aX, aX + rawData.size);
         std::vector<float> VaY(aY, aY + rawData.size);
         std::vector<float> VaZ(aZ, aZ + rawData.size);
@@ -42,6 +44,17 @@ using namespace cv::ml;
         std::vector<float> VgY(gY, gY + rawData.size);
         std::vector<float> VgZ(gZ, gZ + rawData.size);
         
+        std::vector<float> VaM;
+        std::vector<float> VgM;
+        
+        // create the singal magnitude vector time-series
+        for(int i = 0; i < rawData.size; i++){
+            VaM.push_back(sqrt((VaX[i]*VaX[i])+(VaY[i]*VaY[i])+(VaZ[i]*VaZ[i])));
+            VgM.push_back(sqrt((VgX[i]*VgX[i])+(VgY[i]*VgY[i])+(VgZ[i]*VgZ[i])));
+        }
+
+        
+        // check if overlap is valid and calculate number of measurements that overlap
         int overlap = 0;
         
         if (percent_overlap > 100 || percent_overlap < 0) {
@@ -55,38 +68,35 @@ using namespace cv::ml;
             overlap = windowSize * (percent_overlap/100);
         }
         
-        
+        // calculate window size
         int numOfWindows = rawData.size/(windowSize-overlap);
         
-        self.features = cv::Mat(numOfWindows+1, 4, CV_32FC1, Scalar(0));
+        // create feature table
+        self.features = cv::Mat(numOfWindows+1, 7, CV_32FC1, Scalar(0));
         
+        
+        //debug information - REMOVE
         NSLog(@"rawData.size = %d", rawData.size);
         NSLog(@"windowSize = %d", windowSize);
         NSLog(@"overlap = %d", overlap);
         NSLog(@"numberOfwindows = %d", numOfWindows);
 
 
+        // calculate features
         int windowNum = 0;
-        for (int i = 0; i < rawData.size; i = i + (windowSize-overlap)){
-            self.features.at<float>(windowNum,0) = [self percentile:25 array:VaX start:i stop:i+windowSize];
-            //float aMperc50;
-            //float gZabsAvg;;lm
-            self.features.at<float>(windowNum,1) = [self avg:VaX start:i stop:i+windowSize];
-            //float aYzeroCrossings;
-            self.features.at<float>(windowNum,2) = [self percentile:25 array:VaZ start:i stop:i+windowSize];
-            self.features.at<float>(windowNum,3) = [self percentile:50 array:VaZ start:i stop:i+windowSize];
+        for (int i = 0; i < (rawData.size - windowSize); i = i + (windowSize-overlap)){
+            self.features.at<float>(windowNum,0) = [self percentile:75 array:VaX start:i stop:i+windowSize];
+            //self.features.at<float>(windowNum,1) = [self kurt:VaX start:i stop:i+windowSize];
+            self.features.at<float>(windowNum,1) = [self stdev:VaY start:i stop:i+windowSize];
+            self.features.at<float>(windowNum,2) = [self percentile:90 array:VaY start:i stop:i+windowSize];
+            //self.features.at<float>(windowNum,4) = [self kurt:VaY start:i stop:i+windowSize];
+            self.features.at<float>(windowNum,3) = [self absAvg:VaZ start:i stop:i+windowSize];
+            self.features.at<float>(windowNum,4) = [self rms:VaZ start:i stop:i+windowSize];
+            self.features.at<float>(windowNum,5) = [self stdev:VaM start:i stop:i+windowSize];
+            self.features.at<float>(windowNum,6) = [self stdev:VgM start:i stop:i+windowSize];
+
             windowNum++;
-            NSLog(@"LOOP -------------------- WindowNumber = %d", windowNum);
         }
-        
-        NSLog(@"endWindowNumber = %d", windowNum);
-        
-        if (windowNum == numOfWindows) std::cout << "Correct windows size." << std::endl;
-        
-        self.features.at<float>(windowNum,0) = -0.772166667;
-        self.features.at<float>(windowNum,1) = -0.94;
-        self.features.at<float>(windowNum,2) = 0.235;
-        self.features.at<float>(windowNum,3) = 0.61;
         
         self.windowTimeInterval = (windowSize-overlap)*32/1000;
  
@@ -94,7 +104,8 @@ using namespace cv::ml;
     return self;
 }
 
-- (WindowSet*)init:(RawData*)rawData{
+// obselete initialiser - ignore
+/*- (WindowSet*)init:(RawData*)rawData{
     self = [super init];
     if (self)
     {
@@ -116,7 +127,7 @@ using namespace cv::ml;
     self.features.at<float>(0,3) = [self percentile:50 array:VaZ start:0 stop:rawData.size];
     }
     return self;
-}
+}*/
 
 -(float)percentile:(int)percent array:(std::vector<float>)input start:(int)start stop:(int)stop{
     std::vector<float>::const_iterator first = input.begin() + start;
@@ -139,6 +150,61 @@ using namespace cv::ml;
     return ( return_value / n);
 }
 
+-(float)absAvg:(std::vector<float>)v start:(int)start stop:(int)stop{
+    double return_value = 0.0;
+    int n = stop - start;
+    
+    for ( int i = start; i < stop; i++)
+    {
+        return_value += abs(v[i]);
+    }
+    return ( return_value / n);
+}
+
+-(float)stdev:(std::vector<float>)v start:(int)start stop:(int)stop{
+
+    float mean=0.0, sum_deviation=0.0;
+    
+    mean = [self avg:v start:start stop:stop];
+    for(int i= start; i < stop;++i)
+        sum_deviation+=(v[i]-mean)*(v[i]-mean);
+    return sqrt(sum_deviation/(stop-start));
+}
+
+-(float)kurt:(std::vector<float>)v start:(int)start stop:(int)stop{
+    float kurt = 0.0, top = 0.0, bottom = 0.0, mean = 0.0;
+    
+    int length = stop - start;
+    
+    mean = [self avg:v start:start stop:stop];
+    
+    for(int i= start; i < stop;++i)
+        top += (v[i]-mean)*(v[i]-mean)*(v[i]-mean)*(v[i]-mean);
+    
+    top = top/length;
+    
+    for(int i= start; i < stop;++i)
+        bottom += (v[i]-mean)*(v[i]-mean);
+    
+    bottom = bottom/length;
+    
+    bottom = bottom * bottom;
+    
+    kurt = top/bottom;
+    
+    return kurt;
+}
 
 
+-(float)rms:(std::vector<float>)v start:(int)start stop:(int)stop{
+    double sumsquared = 0.0;
+    int n = stop - start;
+    
+    for (int i = start; i < stop; i++)
+    {
+        sumsquared += v[i]*v[i];
+    }
+    
+    return sqrt((double(1)/n)*(sumsquared));
+}
 @end

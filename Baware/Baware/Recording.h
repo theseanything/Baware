@@ -10,9 +10,6 @@
 #import <CoreData/CoreData.h>
 #import "RawData.h"
 
-//@interface ArrayToDataTransformer : NSValueTransformer
-//@end
-
 @class Event;
 
 @interface Recording : NSManagedObject
@@ -27,7 +24,7 @@
 
 -(void)setData:(RawData*)rawData;
 -(RawData*)getData;
--(float*)getAxis:(int)axisN;
+//-(float*)getAxis:(int)axisN;
 
 
 @end

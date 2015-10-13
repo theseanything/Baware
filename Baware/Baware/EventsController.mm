@@ -11,7 +11,7 @@
 @implementation EventsController
 
 -(void)generateEvents:(Recording*) recording{
-    self.windowDuration = 6.4;
+    self.windowDuration = 1.6;
     
     
     // using recording to create windowSet
@@ -23,36 +23,69 @@
     // pass the windowsSet to the classifier    // return results of classifier
     std::vector<float> array = [classifier classify:windowSet];
     
-    int elmNum = 1;
+    int elmNum = 1, start = 0, stop = 0;
     
-    for (float &i : array )
+    int prevType = 1;
+    
+    for (float &currType : array )
     {
-        if (i != 0) {
-            Event *newEvent = (Event *) [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-            newEvent.type = @"Brushing";
-            
-            newEvent.timeOccured = [recording.dateCreated dateByAddingTimeInterval:(windowSet.windowTimeInterval*elmNum)];
-            
-            newEvent.duration = @1;
-            
-            newEvent.recording = recording;
-            [recording addEventsObject:newEvent];
-            recording.analysed = [NSNumber numberWithBool:YES];
-            
-            
-            NSError *error = nil;
-            if (![newEvent.managedObjectContext save:&error]) {
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                abort();
-            }
-            
-            
+        if (currType == 1 && prevType == 1 ){
+            elmNum++;
+            continue;
         }
         
+        if (currType != 1 && prevType == 1) {
+            prevType = currType;
+            start = elmNum;
+        }
+        
+        else if (currType != 1 && prevType == currType){
+            stop = elmNum;
+        }
+        
+        else if (currType == 1 && prevType != currType) {
+            
+            if (prevType == 2) {
+                Event *newEvent = (Event *) [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+                newEvent.type = @"Brushing";
+                
+                newEvent.timeOccured = [recording.dateCreated dateByAddingTimeInterval:(windowSet.windowTimeInterval*(start-1))];
+                
+                newEvent.duration = @(self.windowDuration*(stop-start));
+                
+                newEvent.recording = recording;
+                [recording addEventsObject:newEvent];
+                
+                
+                NSError *error = nil;
+                if (![newEvent.managedObjectContext save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    abort();
+                }
+            }
+            else if (prevType == 3) {
+                Event *newEvent = (Event *) [NSEntityDescription insertNewObjectForEntityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+                newEvent.type = @"Hitting";
+                
+                newEvent.timeOccured = [recording.dateCreated dateByAddingTimeInterval:(windowSet.windowTimeInterval*(start-1))];
+                
+                newEvent.duration = @(self.windowDuration*(stop-start));
+                
+                newEvent.recording = recording;
+                [recording addEventsObject:newEvent];
+                
+                
+                NSError *error = nil;
+                if (![newEvent.managedObjectContext save:&error]) {
+                    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                    abort();
+                }
+            }
+            prevType = currType;
+        }
         elmNum++;
+
     }
-    
-    
     
     // create event based results of classifer - label and time occurred
     //Event* newEvent = [[Event alloc] init];
@@ -88,6 +121,7 @@
 -(int)windowSizeFromDuration:(NSTimeInterval)durationInSecs{
     return durationInSecs*1000/32;
 }
+
 
 // ---- delete rawData ----
 

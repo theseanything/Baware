@@ -29,6 +29,13 @@
 @property int g;
 @property NSDate *startRecordingTime;
 
+@property NSMutableArray *aX;
+@property NSMutableArray *aY;
+@property NSMutableArray *aZ;
+@property NSMutableArray *gX;
+@property NSMutableArray *gY;
+@property NSMutableArray *gZ;
+
 @property RawData *rawData;
 
 @end
@@ -68,25 +75,35 @@
             self.rawData = [[RawData alloc] init:10000];
         }
         
+        // only used for counting can remove and replace with [array count]
         self.a = 0;
         self.g = 0;
         
         self.startRecordingTime = [NSDate date];
         
+        int initSize = 10000;
+        
+         self.aX = [[NSMutableArray alloc] initWithCapacity:initSize];
+         self.aY = [[NSMutableArray alloc] initWithCapacity:initSize];
+         self.aZ = [[NSMutableArray alloc] initWithCapacity:initSize];
+         self.gX = [[NSMutableArray alloc] initWithCapacity:initSize];
+         self.gY = [[NSMutableArray alloc] initWithCapacity:initSize];
+         self.gZ = [[NSMutableArray alloc] initWithCapacity:initSize];
+        
         [self.client.sensorManager startAccelerometerUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorAccelerometerData *accelerometerData, NSError *error) {
             
-            self.rawData.accDataArray[0][self.a] = accelerometerData.x;
-            self.rawData.accDataArray[1][self.a] = accelerometerData.y;
-            self.rawData.accDataArray[2][self.a] = accelerometerData.z;
+            [self.aX addObject: [[NSNumber alloc] initWithFloat:accelerometerData.x]];
+            [self.aY addObject: [[NSNumber alloc] initWithFloat:accelerometerData.y]];
+            [self.aZ addObject: [[NSNumber alloc] initWithFloat:accelerometerData.x]];
             self.a++;
             
         }];
         
         [self.client.sensorManager startGyroscopeUpdatesToQueue:nil errorRef:nil withHandler:^(MSBSensorGyroscopeData *gyroscopeData, NSError *error) {
             
-            self.rawData.gyrDataArray[0][self.g] = gyroscopeData.x;
-            self.rawData.gyrDataArray[1][self.g] = gyroscopeData.y;
-            self.rawData.gyrDataArray[2][self.g] = gyroscopeData.z;
+            [self.gX addObject: [[NSNumber alloc] initWithFloat:gyroscopeData.x]];
+            [self.gY addObject: [[NSNumber alloc] initWithFloat:gyroscopeData.x]];
+            [self.gZ addObject: [[NSNumber alloc] initWithFloat:gyroscopeData.x]];
             self.g++;
             
         }];
@@ -140,7 +157,10 @@
     
     self.recording.duration = [self calculateDuration:self.a gyrCounter:self.g];
     
-    [self.recording setData:self.rawData];
+    
+    
+    self.recording.sensorData = [[NSArray alloc] initWithObjects:self.aX, self.aY, self.aZ, self.gX, self.gY, self.gZ, nil];
+    //[self.recording setData:self.rawData];
     
 }
 

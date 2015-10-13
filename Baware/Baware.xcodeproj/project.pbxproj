@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		AF0201721B7CC730004E0C41 /* RecordingDetailViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0201711B7CC730004E0C41 /* RecordingDetailViewController.mm */; };
 		AF0B77A81B77C181007CA6FE /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77A71B77C181007CA6FE /* Event.m */; };
+		AF454A741B97A61100FF7125 /* trainData50.csv in Resources */ = {isa = PBXBuildFile; fileRef = AF454A731B97A61100FF7125 /* trainData50.csv */; };
+		AF454A761B97B25400FF7125 /* trainData50-k.csv in Resources */ = {isa = PBXBuildFile; fileRef = AF454A751B97B25400FF7125 /* trainData50-k.csv */; };
 		AF48DBB91B72170C005611B3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBB81B72170C005611B3 /* main.m */; };
 		AF48DBBF1B72170C005611B3 /* Baware.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AF48DBBD1B72170C005611B3 /* Baware.xcdatamodeld */; };
 		AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF48DBC61B72170C005611B3 /* Images.xcassets */; };
@@ -28,7 +30,6 @@
 		AF8027101B7A2E8900543554 /* WindowSet.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0095391B79065600CF1659 /* WindowSet.mm */; };
 		AF8027111B7A2E9400543554 /* EventsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77B21B78DC8F007CA6FE /* EventsController.mm */; };
 		AF8027121B7A2EC700543554 /* Classifier.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */; };
-		AFEE78C21B838D770047BC5C /* trainData.csv in Resources */ = {isa = PBXBuildFile; fileRef = AFEE78C11B838D770047BC5C /* trainData.csv */; };
 		AFEE78CC1B84A3FC0047BC5C /* LiveViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = AFEE78CA1B84A3FC0047BC5C /* LiveViewController.mm */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,8 @@
 		AF0B77AC1B77C5E9007CA6FE /* Classifier.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Classifier.mm; sourceTree = "<group>"; };
 		AF0B77B11B78DC8F007CA6FE /* EventsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsController.h; sourceTree = "<group>"; };
 		AF0B77B21B78DC8F007CA6FE /* EventsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = EventsController.mm; sourceTree = "<group>"; };
+		AF454A731B97A61100FF7125 /* trainData50.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainData50.csv; sourceTree = "<group>"; };
+		AF454A751B97B25400FF7125 /* trainData50-k.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "trainData50-k.csv"; sourceTree = "<group>"; };
 		AF48DBB31B72170C005611B3 /* Baware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baware.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF48DBB71B72170C005611B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF48DBB81B72170C005611B3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,7 +81,6 @@
 		AF7D470A1B7A33B500C566A4 /* MicrosoftBandKit_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MicrosoftBandKit_iOS.framework; sourceTree = "<group>"; };
 		AF7D470C1B7A340300C566A4 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		AF7D470E1B7A446300C566A4 /* Percentile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Percentile.cpp; sourceTree = "<group>"; };
-		AFEE78C11B838D770047BC5C /* trainData.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trainData.csv; sourceTree = "<group>"; };
 		AFEE78CA1B84A3FC0047BC5C /* LiveViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LiveViewController.mm; sourceTree = "<group>"; };
 		AFEE78CB1B84A3FC0047BC5C /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,7 +205,8 @@
 		AF48DBFF1B73A0F0005611B3 /* Application Resources */ = {
 			isa = PBXGroup;
 			children = (
-				AFEE78C11B838D770047BC5C /* trainData.csv */,
+				AF454A751B97B25400FF7125 /* trainData50-k.csv */,
+				AF454A731B97A61100FF7125 /* trainData50.csv */,
 				AF48DBF51B7217DE005611B3 /* Main.storyboard */,
 				AF48DBC61B72170C005611B3 /* Images.xcassets */,
 				AF48DBC81B72170C005611B3 /* LaunchScreen.xib */,
@@ -300,11 +303,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF454A761B97B25400FF7125 /* trainData50-k.csv in Resources */,
 				AF48DBFA1B7219C3005611B3 /* LaunchScreen.xib in Resources */,
 				AF48DBF61B7217DE005611B3 /* Main.storyboard in Resources */,
 				AF6DC71B1B80D62800C17192 /* svm_model.xml in Resources */,
 				AF48DBC71B72170C005611B3 /* Images.xcassets in Resources */,
-				AFEE78C21B838D770047BC5C /* trainData.csv in Resources */,
+				AF454A741B97A61100FF7125 /* trainData50.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,8 +493,25 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/gsl/1.15/include,
+					/opt/local/include,
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = BawareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					/opt/local/lib,
+					/usr/local/Cellar/gsl/1.15/lib,
+					/usr/local/lib/,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baware.app/Baware";
 			};
@@ -504,8 +525,25 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/Cellar/gsl/1.15/include,
+					/opt/local/include,
+					/usr/local/include,
+				);
 				INFOPLIST_FILE = BawareTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					/opt/local/lib,
+					/usr/local/Cellar/gsl/1.15/lib,
+					/usr/local/lib/,
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baware.app/Baware";
 			};

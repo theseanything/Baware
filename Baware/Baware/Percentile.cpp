@@ -5,6 +5,7 @@
 //  Created by Sean Rankine on 11/08/2015.
 //  Copyright (c) 2015 Sean Rankine. All rights reserved.
 //
+// Percentile script to calculate the percentile in constant time - FOR REAL TIME CLASSFICATION. NOT CURRENTLY USED.
 
 #include <stdio.h>
 #include <vector>

@@ -19,7 +19,20 @@ using namespace cv::ml;
     self = [super init];
     if (self)
     {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+        
+        // ------ Training of the Knearest Neighbour Classifier ---------
+        
+        NSBundle *mainBundle = [NSBundle mainBundle];
+        NSString *filePath = [mainBundle pathForResource: @"trainData50-k" ofType: @"csv"];
+        
+        self.knn = KNearest::create();
+        self.knn -> setDefaultK(3);
+        Ptr<TrainData> trainingData = cv::ml::TrainData::loadFromCSV([filePath UTF8String], 1);
+        self.knn -> train(trainingData);
+        
+        //  ----- OBSELETE SVM CLASSIFIER TRAINING - IGNORE -------
+        
+        /*NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
         NSString *docs = [paths objectAtIndex:0];
         //NSString *filePath = [docs stringByAppendingPathComponent:@"trainData.csv"];
         
@@ -31,30 +44,43 @@ using namespace cv::ml;
         NSMutableArray *colC = [NSMutableArray array];
         NSMutableArray *colD = [NSMutableArray array];
         NSMutableArray *colE = [NSMutableArray array];
+        
+        NSMutableArray* extractedColumns = [[NSMutableArray alloc] initWithObjects:[];
+        
+        
         NSString* fileContents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
         NSArray* rows = [fileContents componentsSeparatedByString:@"\n"];
         for (NSString *row in rows){
             NSArray* columns = [row componentsSeparatedByString:@","];
+            for (NSArray* column in columns){
+                
+            }
             [colA addObject:columns[0]];
             [colB addObject:columns[1]];
             [colC addObject:columns[2]];
             [colD addObject:columns[3]];
             [colE addObject:columns[4]];
+            [colF addObject:columns[5]];
+            [colG addObject:columns[6]];
+            [colH addObject:columns[7]];
+            [colI addObject:columns[8]];
+            [colJ addObject:columns[9]];
         }
         
         
         int rrows = (int)[colA count];
-        int ccols = 4;
+        int ccols = 8;
         
         float trainingData[rrows-1][ccols];
         int labels[rrows];
 
         
         for (int i = 0; i < rrows-1; ++i) {
+            for (int n = 0; n < 9; n++){
+                trainingData[i][n] = [[[[extractedColumns] objectAtIndex:n+1]objectAtIndex:i+1]floatValue];
+            }
             trainingData[i][0] = [[colB objectAtIndex:i+1] floatValue];
-            trainingData[i][1] = [[colC objectAtIndex:i+1] floatValue];
-            trainingData[i][2] = [[colD objectAtIndex:i+1] floatValue];
-            trainingData[i][3] = [[colE objectAtIndex:i+1] floatValue];
+
             if ([[colA objectAtIndex:i+1]  isEqual: @"brushing"]) {
                 labels[i] = 1;
             }
@@ -73,7 +99,7 @@ using namespace cv::ml;
         }*/
         
         //float trainingData[4][2] = { {501, 10}, {255, 10}, {501, 255}, {10, 501} };
-        Mat trainingDataMat(rrows-1, ccols, CV_32FC1, trainingData);
+        /*Mat trainingDataMat(rrows-1, ccols, CV_32FC1, trainingData);
         Mat labelsMat(rrows-1, 1, CV_32SC1, labels);
         
         //std::cout << "T = "<< std::endl << " "  << trainingDataMat << std::endl << std::endl;
@@ -96,7 +122,10 @@ using namespace cv::ml;
         
         self.svm->StatModel::save([savePath UTF8String]);
         
-        //self.svm = StatModel::load<SVM>("svm_model.xml");
+        //self.svm = StatModel::load<SVM>("svm_model.xml");*/
+        
+        
+
         
     }
     
@@ -104,19 +133,20 @@ using namespace cv::ml;
     
 }
 
+// Function to make the prediction
 -(std::vector<float>)classify:(WindowSet *)windowSet{
     Mat query = windowSet.features;
     
     std::cout << "Q = "<< std::endl << " "  << query << std::endl << std::endl;
     
-    Mat result;
+    Mat results;
     
-    self.svm->predict(query, result);
+    self.knn->findNearest(query, 3, results);
     
-    std::cout << "R = "<< std::endl << " "  << result << std::endl << std::endl;
+    std::cout << "R = "<< std::endl << " "  << results << std::endl << std::endl;
     
     std::vector<float> array;
-    array.assign((float*)result.datastart, (float*)result.dataend);
+    array.assign((float*)results.datastart, (float*)results.dataend);
 
     return array;
 }

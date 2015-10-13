@@ -5,6 +5,7 @@
 //  Created by Sean Rankine on 19/08/2015.
 //  Copyright (c) 2015 Sean Rankine. All rights reserved.
 //
+// View Controller to implement real time classification - not yet complete
 
 #import "LiveViewController.h"
 
